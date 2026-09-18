@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>klon — Son makis... o no?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&family=Noto+Serif+JP:wght@300;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandDark: '#0C0C0C',
+            brandCard: '#141414',
+            brandCardHover: '#1B1B1B',
+            brandRed: '#D8322A',
+            brandRedHover: '#B9231C',
+            brandCream: '#FAECE7',
+            brandCreamMuted: '#D8C7C1',
+            brandBorder: '#232323'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Syne"', 'sans-serif'],
+            jp: ['"Noto Serif JP"', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0C0C0C;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #282828;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D8322A;
+    }
+
+    /* Subtle texture and wave overlay */
+    .bg-wave-pattern {
+      background-image: radial-gradient(rgba(216, 50, 42, 0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .editorial-hanko {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+    }
+
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 0.95; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    .animate-pulse-subtle {
+      animation: pulse-subtle 4s infinite ease-in-out;
+    }
+
+    /* Calibrated food photo framing container */
+    .maki-photo-frame {
+      aspect-ratio: 1 / 1;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at center 48%, #1f0b09 0%, #0c0c0c 85%);
+    }
+
+    .maki-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 49%;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .group:hover .maki-photo-img {
+      transform: scale(1.08);
+    }
+  </style>
+</head>
+<body class="bg-brandDark text-brandCream font-sans selection:bg-brandRed selection:text-white antialiased overflow-x-hidden min-h-screen flex flex-col justify-between">
+
+  <!-- Top Navigation -->
+  <header class="sticky top-0 z-40 bg-brandDark/90 backdrop-blur-md border-b border-brandBorder transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo & Isotype -->
+      <a href="#" class="flex items-center gap-3 group">
+        <!-- Minimalist Ninja Isotype -->
+        <div class="w-10 h-10 rounded-full border border-brandRed flex items-center justify-center relative p-1.5 transition-transform duration-300 group-hover:scale-105">
+          <svg viewBox="0 0 100 100" class="w-full h-full stroke-brandRed fill-none stroke-[3.5]" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Ninja Head Contour -->
+            <circle cx="50" cy="50" r="45" stroke-dasharray="240 10" />
+            <!-- Mask Eye Opening -->
+            <path d="M 28 44 Q 50 49 72 44 Q 72 56 50 56 Q 28 56 28 44 Z" class="fill-brandRed/20 stroke-brandRed" />
+            <!-- Piercing Ninja Eyes -->
+            <line x1="38" y1="50" x2="45" y2="49" class="stroke-brandRed stroke-[4]" />
+            <line x1="55" y1="49" x2="62" y2="50" class="stroke-brandRed stroke-[4]" />
+            <!-- Headband knot accent -->
+            <path d="M 72 38 L 84 34 M 73 42 L 85 46" />
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-extrabold tracking-tighter text-2xl text-brandCream leading-none">
+            klon<span class="text-brandRed">.</span>
+          </span>
+          <span class="text-[10px] tracking-[0.22em] uppercase text-brandCreamMuted/70 font-medium">Lima · Perú</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm uppercase tracking-widest text-brandCreamMuted">
+        <a href="#concepto" class="hover:text-brandRed transition-colors duration-200 font-medium">Concepto</a>
+        <a href="#menu" class="hover:text-brandRed transition-colors duration-200 font-medium">Sabores Klon</a>
+        <a href="#combos" class="hover:text-brandRed transition-colors duration-200 font-medium">Combos</a>
+        <a href="#compromiso" class="hover:text-brandRed transition-colors duration-200 font-medium">Compromiso</a>
+      </nav>
+
+      <!-- Cart Button with counter -->
+      <div class="flex items-center gap-3">
+        <button id="cart-toggle-btn" class="relative bg-brandCard border border-brandBorder hover:border-brandRed/60 text-brandCream px-4 py-2.5 rounded-full flex items-center gap-2.5 transition-all duration-200 active:scale-95 group">
+          <svg class="w-4 h-4 stroke-brandCream group-hover:stroke-brandRed transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+          <span class="text-xs uppercase tracking-wider font-semibold">Tu Pedido</span>
+          <span id="cart-badge-count" class="w-5 h-5 bg-brandRed text-white text-[10px] font-bold rounded-full flex items-center justify-center transition-transform scale-100">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-12 pb-20 md:pt-24 md:pb-32 overflow-hidden bg-wave-pattern">
+    
+    <!-- Decorative Ukiyo-e Wave Accent (Discreet SVG) -->
+    <div class="absolute right-0 top-1/4 -translate-y-1/2 w-96 h-96 pointer-events-none opacity-10 select-none">
+      <svg viewBox="0 0 400 400" class="stroke-brandRed fill-none stroke-[1.2]">
+        <path d="M10,200 C70,120 120,240 180,180 C240,120 300,220 390,140" />
+        <path d="M0,230 C60,150 130,260 200,200 C270,140 330,230 400,170" />
+        <path d="M30,270 C80,200 150,290 220,230 C280,180 340,260 400,210" />
+        <circle cx="280" cy="90" r="40" class="stroke-brandRed/40 stroke-1" stroke-dasharray="4 4" />
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Hero Text & Tagline -->
+        <div class="lg:col-span-7 space-y-7 z-10">
+          
+          <!-- Hanko Stamp / Label -->
+          <div class="inline-flex items-center gap-3">
+            <span class="px-2.5 py-1 border border-brandRed/70 text-brandRed text-[11px] font-bold tracking-widest uppercase rounded bg-brandRed/10">
+              Edición Artesanal
+            </span>
+            <span class="font-jp text-xs text-brandCreamMuted/60 tracking-wider"> クロン · 巻きデザート</span>
+          </div>
+
+          <!-- Main Editorial Heading -->
+          <h1 class="text-4xl sm:text-6xl xl:text-7xl font-display font-extrabold tracking-tight text-brandCream leading-[1.05]">
+            Son makis... <br />
+            <span class="text-brandRed italic">¿o no?</span>
+          </h1>
+
+          <!-- Subtitle / Concept Intro -->
+          <p class="text-brandCreamMuted text-base sm:text-lg max-w-xl font-light leading-relaxed">
+            Nuestros rollos tienen la arquitectura de un maki japonés tradicional, pero el alma de un postre de autor. 
+            Crepes delicados, cremas de frutos y coberturas sublimes presentados en cajas bento con palillos y salseras de dipping.
+          </p>
+
+          <!-- CTAs -->
+          <div class="pt-2 flex flex-wrap items-center gap-4">
+            <a href="#menu" class="px-8 py-4 bg-brandRed hover:bg-brandRedHover text-white font-semibold text-sm uppercase tracking-wider rounded-xl shadow-lg shadow-brandRed/20 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-3">
+              <span>Explorar Sabores Klon</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a href="#combos" class="px-6 py-4 border border-brandBorder hover:border-brandRed text-brandCream text-sm uppercase tracking-wider font-medium rounded-xl transition-colors">
+              Ver Combos
+            </a>
+          </div>
+
+          <!-- Feature badges -->
+          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-brandBorder/60 max-w-lg text-xs text-brandCreamMuted">
+            <div class="space-y-1">
+              <span class="text-brandRed font-bold text-sm block">14</span>
+              <span>Variedades únicas</span>
+            </div>
+            <div class="space-y-1">
+              <span class="text-brandRed font-bold text-sm block">100%</span>
+              <span>Biodegradable</span>
+            </div>
+            <div class="space-y-1">
+              <span class="text-brandRed font-bold text-sm block">Lima</span>
+              <span>Delivery express</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Hero Box Visual: Assembled Open Box Display -->
+        <div class="lg:col-span-5 relative flex justify-center">
+          
+          <!-- Background Glow -->
+          <div class="absolute inset-0 bg-brandRed/15 filter blur-3xl rounded-full transform -rotate-6 scale-90 pointer-events-none"></div>
+
+          <!-- Stylized Bento Box Frame -->
+          <div class="relative w-full max-w-md bg-brandCard border border-brandBorder/90 rounded-2xl p-6 shadow-2xl space-y-5 transform hover:scale-[1.01] transition-transform duration-300">
+            
+            <!-- Box Lid Ribbon / Hanko Brand -->
+            <div class="flex items-center justify-between border-b border-brandBorder/80 pb-4">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-brandRed inline-block"></span>
+                <span class="text-xs uppercase tracking-widest font-display font-bold text-brandCream">Caja Maki Bento klon</span>
+              </div>
+              <!-- Hanko Red Stamp -->
+              <div class="w-7 h-7 border border-brandRed text-brandRed rounded flex items-center justify-center text-[9px] font-bold tracking-tighter bg-brandRed/10">
+                印
+              </div>
+            </div>
+
+            <!-- Bento Sushi Roll Display Grid (6 Mock Makis Inside) -->
+            <div class="grid grid-cols-3 gap-3 p-3 bg-brandDark/80 rounded-xl border border-brandBorder/70">
+              
+              <!-- Maki Piece 1: Strawberry Roll -->
+              <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Fresa">
+                <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors">
+                  <!-- Product Image: Replace 'images/hero/hero-fresa.jpg' with your photo -->
+                  <img src="images/hero/hero-fresa.jpg" alt="Fresa" class="w-full h-full object-cover rounded-full" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
+                  <div class="hidden w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
+                  </div>
+                </div>
+                <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors">Fresa</span>
+              </div>
+
+              <!-- Maki Piece 2: Kiwi Roll -->
+              <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Kiwi">
+                <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors">
+                  <!-- Product Image: Replace 'images/hero/hero-kiwi.jpg' with your photo -->
+                  <img src="images/hero/hero-kiwi.jpg" alt="Kiwi" class="w-full h-full object-cover rounded-full" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
+                  <div class="hidden w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
+                  </div>
+                </div>
+                <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors">Kiwi</span>
+              </div>
+
+              <!-- Maki Piece 3: Mango Roll -->
+              <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Mango">
+                <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors">
+                  <!-- Product Image: Replace 'images/hero/hero-mango.jpg' with your photo -->
+                  <img src="images/hero/hero-mango.jpg" alt="Mango" class="w-full h-full object-cover rounded-full" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
+                  <div class="hidden w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
+                  </div>
+                </div>
+                <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors">Mango</span>
+              </div>
+
+              <!-- Maki Piece 4: Red Velvet -->
+              <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Velvet">
+                <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors">
+                  <!-- Product Image: Replace 'images/hero/hero-velvet.jpg' with your photo -->
+                  <img src="images/hero/hero-velvet.jpg" alt="Velvet" class="w-full h-full object-cover rounded-full" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
+                  <div class="hidden w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
+                  </div>
+                </div>
+                <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors">Velvet</span>
+              </div>
+
+              <!-- Maki Piece 5: Tiramisu / Café -->
+              <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Café">
+                <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors">
+                  <!-- Product Image: Replace 'images/hero/hero-cafe.jpg' with your photo -->
+                  <img src="images/hero/hero-cafe.jpg" alt="Café" class="w-full h-full object-cover rounded-full" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
+                  <div class="hidden w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
+                  </div>
+                </div>
+                <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors">Café</span>
+              </div>
+
+              <!-- Maki Piece 6: Chocolate Bitter -->
+              <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Choco">
+                <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors">
+                  <!-- Product Image: Replace 'images/hero/hero-choco.jpg' with your photo -->
+                  <img src="images/hero/hero-choco.jpg" alt="Choco" class="w-full h-full object-cover rounded-full" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
+                  <div class="hidden w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
+                  </div>
+                </div>
+                <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors">Choco</span>
+              </div>
+
+            </div>
+
+            <!-- Bento Accessories: Sauce Pot & Wooden Chopsticks Minimalist Icons -->
+            <div class="flex items-center justify-between pt-1 px-1">
+              <!-- Mini Sauce Pot (Minimal Line Icon) -->
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full border border-brandRed/60 bg-brandRed/10 flex items-center justify-center text-brandRed">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <ellipse cx="12" cy="8" rx="8" ry="3" />
+                    <path d="M4 8v5c0 3 3.6 5 8 5s8-2 8-5V8" />
+                  </svg>
+                </div>
+                <span class="text-[11px] text-brandCreamMuted">Pote de salsa incluido</span>
+              </div>
+
+              <!-- Chopsticks Badge (Minimal Line Icon) -->
+              <div class="flex items-center gap-1.5 text-[11px] text-brandCreamMuted font-mono">
+                <svg class="w-4 h-4 stroke-brandRed fill-none" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round">
+                  <line x1="4" y1="20" x2="20" y2="4" />
+                  <line x1="7" y1="20" x2="21" y2="6" />
+                </svg>
+                <span>Palillos bambú</span>
+              </div>
+            </div>
+
+            <div class="text-center pt-2">
+              <button type="button" onclick="openBoxBuilderModal()" class="w-full block py-3 bg-brandCardHover hover:bg-brandRed text-brandCream hover:text-white border border-brandBorder hover:border-brandRed text-xs uppercase tracking-widest font-semibold rounded-lg transition-all duration-200 shadow-md flex items-center justify-center gap-2 group active:scale-98">
+                <span>Personalizar mi caja (6 piezas)</span>
+                <span class="text-brandRed group-hover:text-white transition-colors">→</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 'The Concept' Section -->
+  <section id="concepto" class="py-20 md:py-28 border-t border-brandBorder bg-brandCard/40 relative overflow-hidden">
+    
+    <!-- Background Motif 1: Oversized Cropped Ninja Isotype Outline (Top-Left, 6% opacity) -->
+    <div class="absolute -left-28 -top-24 w-[480px] h-[480px] pointer-events-none select-none opacity-[0.06] text-brandRed z-0">
+      <svg viewBox="0 0 100 100" class="w-full h-full stroke-brandRed fill-none stroke-[2.2]" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="50" cy="50" r="46" stroke-dasharray="240 8" />
+        <path d="M 28 44 Q 50 49 72 44 Q 72 56 50 56 Q 28 56 28 44 Z" class="fill-brandRed/10 stroke-brandRed" />
+        <line x1="38" y1="50" x2="45" y2="49" class="stroke-brandRed stroke-[2.8]" />
+        <line x1="55" y1="49" x2="62" y2="50" class="stroke-brandRed stroke-[2.8]" />
+        <path d="M 72 38 L 86 33 M 73 42 L 87 46" />
+      </svg>
+    </div>
+
+    <!-- Background Motif 2: Thin-Line Maki Roll Cross-Section Silhouette (Bottom-Right, 5% opacity) -->
+    <div class="absolute -right-20 -bottom-24 w-[420px] h-[420px] pointer-events-none select-none opacity-[0.05] z-0">
+      <svg viewBox="0 0 200 200" class="w-full h-full stroke-brandRed fill-none stroke-[1.2]" stroke-linecap="round">
+        <!-- Concentric Crepe & Nori Roll Rings -->
+        <circle cx="100" cy="100" r="92" stroke-dasharray="8 4" />
+        <circle cx="100" cy="100" r="82" />
+        <circle cx="100" cy="100" r="68" stroke-dasharray="4 6" />
+        <circle cx="100" cy="100" r="50" />
+        <circle cx="100" cy="100" r="32" class="fill-brandRed/10" />
+        <circle cx="100" cy="100" r="16" class="fill-brandRed/20 stroke-[1.8]" />
+        <!-- Spiral roll fold accent -->
+        <path d="M100,50 C135,50 155,75 155,100 C155,130 130,150 100,150 C75,150 58,132 58,110 C58,92 72,78 88,78 C102,78 112,88 112,100" stroke-dasharray="3 3" />
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        
+        <!-- Small Editorial Marker -->
+        <div class="md:col-span-3">
+          <div class="flex items-center gap-3">
+            <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+            <span class="text-xs uppercase tracking-[0.25em] text-brandRed font-bold">El Concepto</span>
+          </div>
+          <p class="font-jp text-3xl text-brandCreamMuted/20 mt-4 tracking-wider hidden md:block">
+            偽物の芸術
+          </p>
+        </div>
+
+        <!-- Body Text -->
+        <div class="md:col-span-9 space-y-6">
+          <h2 class="text-2xl sm:text-4xl font-display font-extrabold tracking-tight text-brandCream max-w-2xl">
+            La ilusión visual de una barra de sushi. El éxtasis goloso de la alta repostería.
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-brandCreamMuted text-sm sm:text-base font-light leading-relaxed">
+            <p>
+              En <strong class="text-brandCream font-semibold">klon</strong> cuestionamos la forma en que comemos postres. Reemplazamos las algas nori por finas crepas francesas horneadas a la plancha, el arroz avinagrado por rellenos aterciopelados de queso crema, mascarpone y mousses aireadas, y el pescado por frutas frescas seleccionadas de valles peruanos.
+            </p>
+            <p>
+              Cada caja llega con sus palillos de bambú y sus potes de salsa estilo "shoyu", pero en versión chocolate al 70%, crema pura de pistacho de Bronte, reducción de frutos rojos o dulce de leche artesanal. Una experiencia interactiva diseñada para jugar, compartir y romper la rutina.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 'Menu' Section -->
+  <section id="menu" class="py-20 md:py-32 border-t border-brandBorder relative overflow-hidden">
+    
+    <!-- Subtle Architectural & Japanese Linear Pattern Backdrop (Restrained thin strokes only, 6% opacity) -->
+    <div class="absolute inset-0 pointer-events-none select-none z-0 opacity-[0.06]">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Delicate Seigaiha Concentric Arc Pattern (Thin stroke 0.75px, no fill, no figures) -->
+          <pattern id="seigaiha-line-pattern" width="60" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 0 30 A 30 30 0 0 1 60 30" fill="none" stroke="#D8322A" stroke-width="0.75" />
+            <path d="M 6 30 A 24 24 0 0 1 54 30" fill="none" stroke="#D8322A" stroke-width="0.75" />
+            <path d="M 12 30 A 18 18 0 0 1 48 30" fill="none" stroke="#D8322A" stroke-width="0.75" />
+            <path d="M 18 30 A 12 12 0 0 1 42 30" fill="none" stroke="#D8322A" stroke-width="0.75" />
+            <path d="M 24 30 A 6 6 0 0 1 36 30" fill="none" stroke="#D8322A" stroke-width="0.75" />
+
+            <!-- Offset interleaved tier -->
+            <path d="M -30 15 A 30 30 0 0 1 30 15" fill="none" stroke="#D8322A" stroke-width="0.75" />
+            <path d="M -24 15 A 24 24 0 0 1 24 15" fill="none" stroke="#D8322A" stroke-width="0.75" />
+            <path d="M -18 15 A 18 18 0 0 1 18 15" fill="none" stroke="#D8322A" stroke-width="0.75" />
+            <path d="M -12 15 A 12 12 0 0 1 12 15" fill="none" stroke="#D8322A" stroke-width="0.75" />
+            <path d="M -6 15 A 6 6 0 0 1 6 15" fill="none" stroke="#D8322A" stroke-width="0.75" />
+
+            <path d="M 30 15 A 30 30 0 0 1 90 15" fill="none" stroke="#D8322A" stroke-width="0.75" />
+            <path d="M 36 15 A 24 24 0 0 1 84 15" fill="none" stroke="#D8322A" stroke-width="0.75" />
+            <path d="M 42 15 A 18 18 0 0 1 78 15" fill="none" stroke="#D8322A" stroke-width="0.75" />
+            <path d="M 48 15 A 12 12 0 0 1 72 15" fill="none" stroke="#D8322A" stroke-width="0.75" />
+            <path d="M 54 15 A 6 6 0 0 1 66 15" fill="none" stroke="#D8322A" stroke-width="0.75" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#seigaiha-line-pattern)" />
+      </svg>
+    </div>
+
+    <!-- Editorial Minimalist Grid Lines (Delicate guide lines in off-white & red, 5% opacity) -->
+    <div class="absolute inset-0 pointer-events-none select-none z-0 opacity-[0.05]">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <line x1="6%" y1="0" x2="6%" y2="100%" stroke="#FAECE7" stroke-width="0.75" stroke-dasharray="6 14" />
+        <line x1="94%" y1="0" x2="94%" y2="100%" stroke="#FAECE7" stroke-width="0.75" stroke-dasharray="6 14" />
+        <line x1="0" y1="20%" x2="100%" y2="20%" stroke="#D8322A" stroke-width="0.6" stroke-dasharray="4 18" />
+        <line x1="0" y1="56%" x2="100%" y2="56%" stroke="#D8322A" stroke-width="0.6" stroke-dasharray="4 18" />
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Section Header with Category Tabs -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-brandRed"></span>
+            <span class="text-xs uppercase tracking-widest text-brandRed font-bold">Carta Oficial</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-display font-extrabold tracking-tight text-brandCream">
+            Sabores Klon
+          </h2>
+          <p class="text-sm text-brandCreamMuted mt-1">Cajas de 6 piezas con 1 salsa artesanal incluida</p>
+        </div>
+
+        <!-- Filter Pill Switcher -->
+        <div class="inline-flex bg-brandCard p-1 rounded-xl border border-brandBorder self-start md:self-auto">
+          <button id="tab-all" onclick="filterMenu('all')" class="menu-tab-btn active px-4 py-2 text-xs uppercase tracking-wider font-semibold rounded-lg bg-brandRed text-white transition-all">
+            Todos (14)
+          </button>
+          <button id="tab-fruit" onclick="filterMenu('fruit')" class="menu-tab-btn px-4 py-2 text-xs uppercase tracking-wider font-semibold rounded-lg text-brandCreamMuted hover:text-white transition-all">
+            Línea Frutal (7)
+          </button>
+          <button id="tab-pastry" onclick="filterMenu('pastry')" class="menu-tab-btn px-4 py-2 text-xs uppercase tracking-wider font-semibold rounded-lg text-brandCreamMuted hover:text-white transition-all">
+            Línea Pastelera (7)
+          </button>
+        </div>
+      </div>
+
+      <!-- Products Container (Structured with visual separation between lines) -->
+      <div id="products-catalog" class="space-y-16">
+        
+        <!-- Fruit Line Sub-Section -->
+        <div id="fruit-line-section" class="space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-brandBorder gap-2">
+            <div class="flex items-center gap-3">
+              <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-brandRed/10 border border-brandRed/60 text-brandRed">Línea Frutal</span>
+              <h3 class="font-display font-bold text-xl sm:text-2xl text-brandCream">Makis Frutales</h3>
+            </div>
+            <p class="text-xs text-brandCreamMuted font-light">Frescura de valles peruanos envuelta en finas crepas francesas</p>
+          </div>
+          <div id="fruit-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Injected via JavaScript -->
+          </div>
+        </div>
+
+        <!-- Visual Sub-Section Divider -->
+        <div id="menu-subdivider" class="relative flex items-center justify-center pt-6">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-brandBorder/80"></div>
+          </div>
+          <div class="relative bg-brandDark px-4 text-xs font-jp text-brandRed tracking-widest uppercase flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brandRed"></span>
+            <span>洋菓子 · REPOSTERÍA ARTESANAL</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-brandRed"></span>
+          </div>
+        </div>
+
+        <!-- Pastry Line Sub-Section -->
+        <div id="pastry-line-section" class="space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-brandBorder gap-2">
+            <div class="flex items-center gap-3">
+              <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-brandRed/10 border border-brandRed/60 text-brandRed">Línea Pastelera</span>
+              <h3 class="font-display font-bold text-xl sm:text-2xl text-brandCream">Makis Pasteleros</h3>
+            </div>
+            <p class="text-xs text-brandCreamMuted font-light">Grandes clásicos de la pastelería internacional en formato roll</p>
+          </div>
+          <div id="pastry-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Injected via JavaScript -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 'Combos' Section -->
+  <section id="combos" class="py-20 md:py-28 bg-brandCard/60 border-t border-brandBorder relative overflow-hidden">
+    
+    <!-- Background Motif 1: Cropped Giant Ninja Mask Silhouette (Top-Left, 5% opacity) -->
+    <div class="absolute -left-24 -top-20 w-[440px] h-[440px] pointer-events-none select-none opacity-[0.05] z-0">
+      <svg viewBox="0 0 100 100" class="w-full h-full stroke-brandRed fill-none stroke-[2]" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="50" cy="50" r="46" />
+        <path d="M 28 44 Q 50 49 72 44 Q 72 56 50 56 Q 28 56 28 44 Z" class="fill-brandRed/15 stroke-brandRed" />
+        <line x1="38" y1="50" x2="45" y2="49" class="stroke-brandRed stroke-[2.5]" />
+        <line x1="55" y1="49" x2="62" y2="50" class="stroke-brandRed stroke-[2.5]" />
+      </svg>
+    </div>
+
+    <!-- Background Motif 2: Bento Grid & Ripple Silhouette (Bottom-Right, 6% opacity) -->
+    <div class="absolute -right-24 -bottom-24 w-[480px] h-[480px] pointer-events-none select-none opacity-[0.06] z-0">
+      <svg viewBox="0 0 300 300" class="w-full h-full stroke-brandRed fill-none stroke-[1.2]">
+        <!-- Isometric Bento Tray Grid Wireframe -->
+        <rect x="40" y="40" width="220" height="220" rx="20" stroke-dasharray="6 6" />
+        <rect x="55" y="55" width="90" height="90" rx="12" />
+        <rect x="155" y="55" width="90" height="90" rx="12" />
+        <rect x="55" y="155" width="90" height="90" rx="12" />
+        <rect x="155" y="155" width="90" height="90" rx="12" />
+        <circle cx="100" cy="100" r="30" stroke-dasharray="3 3" />
+        <circle cx="200" cy="100" r="30" stroke-dasharray="3 3" />
+        <circle cx="100" cy="200" r="30" stroke-dasharray="3 3" />
+        <circle cx="200" cy="200" r="30" stroke-dasharray="3 3" />
+        <!-- Wave underlay lines -->
+        <path d="M10,270 C90,230 160,285 240,245 C280,225 295,230 300,235" stroke-dasharray="4 4" />
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="max-w-2xl mb-12">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-2 h-2 rounded-full bg-brandRed"></span>
+          <span class="text-xs uppercase tracking-widest text-brandRed font-bold">Experiencias Listas</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-display font-extrabold text-brandCream">
+          Combos klon
+        </h2>
+        <p class="text-sm text-brandCreamMuted mt-1">
+          Cajas maestras ensambladas por nuestros artesanos. Selecciona la cantidad y agrégala directo a tu pedido.
+        </p>
+      </div>
+
+      <!-- Combos Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="combos-grid">
+        <!-- Injected via JavaScript -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 'Commitment' Section -->
+  <section id="compromiso" class="py-20 border-t border-brandBorder relative overflow-hidden">
+    
+    <!-- Background Motif: Faint Bamboo Stalks & Water Ripple Rings (Center-Right, 5% opacity) -->
+    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[420px] h-[420px] pointer-events-none select-none opacity-[0.05] z-0">
+      <svg viewBox="0 0 300 300" class="w-full h-full stroke-brandRed fill-none stroke-[1.2]" stroke-linecap="round">
+        <!-- Minimalist Bamboo Stalks -->
+        <line x1="180" y1="0" x2="180" y2="300" stroke-width="1.8" />
+        <line x1="174" y1="80" x2="186" y2="80" stroke-width="2.5" />
+        <line x1="174" y1="170" x2="186" y2="170" stroke-width="2.5" />
+        <line x1="174" y1="250" x2="186" y2="250" stroke-width="2.5" />
+        <path d="M186,80 C205,65 225,75 230,80" />
+        <path d="M174,170 C155,155 135,165 130,170" />
+        <!-- Concentric Water Ripples -->
+        <ellipse cx="140" cy="180" rx="90" ry="26" stroke-dasharray="4 6" />
+        <ellipse cx="140" cy="180" rx="60" ry="17" />
+        <ellipse cx="140" cy="180" rx="30" ry="9" stroke-dasharray="2 3" />
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="border border-brandBorder rounded-2xl bg-brandCard p-8 sm:p-12 relative overflow-hidden">
+        
+        <!-- Decorative subtle watermark (Kanji + Red Hanko Stamp Silhouette at 6% opacity) -->
+        <div class="absolute -right-6 -bottom-8 opacity-[0.06] pointer-events-none select-none flex items-center gap-4 z-0">
+          <span class="font-jp text-9xl text-brandRed font-bold leading-none">自然</span>
+          <div class="w-20 h-20 border-2 border-brandRed rounded-xl flex items-center justify-center text-3xl font-jp text-brandRed font-bold">印</div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          <div class="lg:col-span-8 space-y-4">
+            <div class="inline-flex items-center gap-2 text-brandRed text-xs uppercase tracking-widest font-bold">
+              <span>Sustentabilidad y Origen</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-display font-bold text-brandCream">
+              Empaques biodegradables y tributo al cacao peruano
+            </h3>
+            <p class="text-brandCreamMuted text-sm sm:text-base font-light leading-relaxed">
+              Nuestras cajas bento están elaboradas con cartón kraft virgen 100% compostable sin plastificados tóxicos. 
+              Los palillos son de bambú de cultivo renovable y las salseras son biodegradables. Además, el 100% de nuestro cacao 
+              proviene de cooperativas de San Martín y Piura, garantizando comercio justo con productores locales.
+            </p>
+          </div>
+
+          <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-4">
+            <!-- Bento Kraft minimal line icon -->
+            <div class="flex items-center gap-3 p-3.5 rounded-xl bg-brandDark/80 border border-brandBorder">
+              <div class="w-9 h-9 rounded-lg border border-brandBorder bg-brandCard flex items-center justify-center text-brandRed flex-shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+                  <path d="m3.3 7 8.7 5 8.7-5" />
+                  <path d="M12 22V12" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xs uppercase font-bold text-brandCream">Bento Kraft 100% Eco</h4>
+                <p class="text-[11px] text-brandCreamMuted">Descomposición limpia en 90 días</p>
+              </div>
+            </div>
+
+            <!-- Cacao Nativo minimal line icon -->
+            <div class="flex items-center gap-3 p-3.5 rounded-xl bg-brandDark/80 border border-brandBorder">
+              <div class="w-9 h-9 rounded-lg border border-brandBorder bg-brandCard flex items-center justify-center text-brandRed flex-shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2C6.5 2 3 6.5 3 12c0 6.5 4.5 10 9 10s9-3.5 9-10c0-5.5-3.5-10-9-10Z" />
+                  <path d="M12 2v20" />
+                  <path d="M12 6c-3 1.5-4 4-4 6s1 4.5 4 6" />
+                  <path d="M12 6c3 1.5 4 4 4 6s-1 4.5-4 6" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xs uppercase font-bold text-brandCream">Cacao Nativo 70%</h4>
+                <p class="text-[11px] text-brandCreamMuted">Sin grasas hidrogenadas añadidas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-brandBorder bg-brandDark pt-16 pb-12 text-brandCreamMuted">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        
+        <!-- Left: Signature Isotype & Tagline -->
+        <div class="flex items-center gap-4">
+          <!-- Red Ninja Isotype in Circle -->
+          <div class="w-12 h-12 rounded-full border-2 border-brandRed flex items-center justify-center relative p-2 shadow-lg shadow-brandRed/20">
+            <svg viewBox="0 0 100 100" class="w-full h-full stroke-brandRed fill-none stroke-[4]" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="50" cy="50" r="45" />
+              <path d="M 28 44 Q 50 49 72 44 Q 72 56 50 56 Q 28 56 28 44 Z" class="fill-brandRed/30 stroke-brandRed" />
+              <line x1="38" y1="50" x2="45" y2="49" class="stroke-brandRed stroke-[5]" />
+              <line x1="55" y1="49" x2="62" y2="50" class="stroke-brandRed stroke-[5]" />
+              <path d="M 72 38 L 84 34 M 73 42 L 85 46" />
+            </svg>
+          </div>
+          <div>
+            <div class="font-display font-extrabold text-2xl tracking-tight text-brandCream">
+              klon<span class="text-brandRed">.</span>
+            </div>
+            <p class="text-xs text-brandCreamMuted">"Son makis.... o no?"</p>
+          </div>
+        </div>
+
+        <!-- Social Media handles explicitly highlighted (Unified sans font) -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+          <span class="text-xs uppercase tracking-widest text-brandCreamMuted/70 font-semibold font-sans">Síguenos en redes:</span>
+          
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 text-xs sm:text-sm text-brandCream hover:text-brandRed font-sans font-semibold tracking-wide transition-colors bg-brandCard px-4 py-2.5 rounded-lg border border-brandBorder hover:border-brandRed/50">
+            <svg class="w-4 h-4 fill-brandRed" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.13-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <span>Instagram: @klon.pe</span>
+          </a>
+
+          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 text-xs sm:text-sm text-brandCream hover:text-brandRed font-sans font-semibold tracking-wide transition-colors bg-brandCard px-4 py-2.5 rounded-lg border border-brandBorder hover:border-brandRed/50">
+            <svg class="w-4 h-4 fill-brandRed" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+            <span>TikTok: @klon.pe</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Divider & Legal text -->
+      <div class="pt-8 border-t border-brandBorder/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-brandCreamMuted/60 font-sans">
+        <p>© 2026 klon. Todos los derechos reservados. Lima, Perú.</p>
+        <p class="tracking-wide">
+          Hecho con pasión por el postre artesanal.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Product Detail & Customization Modal -->
+  <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="relative w-full max-w-2xl bg-brandCard border border-brandBorder rounded-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl text-brandCream transform scale-95 transition-transform duration-300" id="modal-container">
+      
+      <!-- Close button -->
+      <button onclick="closeProductModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-brandDark border border-brandBorder hover:border-brandRed text-brandCreamMuted hover:text-white flex items-center justify-center transition-colors">
+        ✕
+      </button>
+
+      <!-- Modal Content Layout -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        
+        <!-- Large Photo Preview -->
+        <div class="rounded-xl overflow-hidden border border-brandBorder bg-brandDark relative aspect-square">
+          <img id="modal-img" src="" alt="" class="w-full h-full object-cover" />
+          <span id="modal-line-tag" class="absolute top-3 left-3 text-[10px] font-bold uppercase tracking-widest px-2 py-1 bg-brandDark/90 border border-brandRed text-brandRed rounded">
+            Línea Frutal
+          </span>
+        </div>
+
+        <!-- Product Specs & Config -->
+        <div class="space-y-4">
+          <div>
+            <h3 id="modal-title" class="text-xl sm:text-2xl font-display font-extrabold text-brandCream leading-tight"></h3>
+            <p id="modal-desc" class="text-xs sm:text-sm text-brandCreamMuted mt-1.5 font-light"></p>
+          </div>
+
+          <div class="p-3 bg-brandDark/70 rounded-xl border border-brandBorder/80 flex items-center justify-between">
+            <span class="text-xs uppercase tracking-wider text-brandCreamMuted font-medium">Precio base (Caja 6 unid):</span>
+            <span id="modal-base-price" class="text-base font-bold text-brandRed"></span>
+          </div>
+
+          <!-- Optional Toppings (Only for applicable products) -->
+          <div id="modal-toppings-wrapper" class="space-y-2 pt-2 border-t border-brandBorder/60 hidden">
+            <div class="flex items-center justify-between">
+              <label class="text-xs uppercase font-bold tracking-wider text-brandCream flex items-center gap-1.5">
+                <span>Toppings artesanales:</span>
+                <span class="text-brandRed text-[10px] font-mono">(+S/ 2 c/u)</span>
+              </label>
+              <span id="modal-toppings-count" class="text-[11px] text-brandCreamMuted">0 seleccionados</span>
+            </div>
+            <div id="modal-toppings-container" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              <!-- Dynamically populated checkboxes for toppings -->
+            </div>
+          </div>
+
+          <!-- Included Sauce (1 Included) -->
+          <div class="space-y-2 pt-1 border-t border-brandBorder/60">
+            <div class="flex items-center justify-between">
+              <label class="text-xs uppercase font-bold tracking-wider text-brandCream flex items-center gap-1.5">
+                <span>1 Salsa incluida:</span>
+                <span class="text-brandRed text-[10px]">(Gratis)</span>
+              </label>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 text-xs" id="default-sauce-radios">
+              <!-- Radios: Chocolate, Pistachio Cream, Dulce de Leche, Fruit Jam -->
+              <label class="sauce-label flex items-center gap-2 p-2 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors">
+                <input type="radio" name="included-sauce" value="Chocolate" class="accent-brandRed" />
+                <span class="text-xs">Chocolate</span>
+              </label>
+              <label class="sauce-label flex items-center gap-2 p-2 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors">
+                <input type="radio" name="included-sauce" value="Pistachio Cream" class="accent-brandRed" />
+                <span class="text-xs">Pistachio Cream</span>
+              </label>
+              <label class="sauce-label flex items-center gap-2 p-2 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors">
+                <input type="radio" name="included-sauce" value="Dulce de Leche" class="accent-brandRed" />
+                <span class="text-xs">Dulce de Leche</span>
+              </label>
+              <label class="sauce-label flex items-center gap-2 p-2 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors">
+                <input type="radio" name="included-sauce" value="Fruit Jam" class="accent-brandRed" />
+                <span class="text-xs">Fruit Jam</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Extra Sauces Section (+S/3 each) -->
+          <div class="space-y-2 pt-2 border-t border-brandBorder/60">
+            <div class="flex items-center justify-between">
+              <span class="text-xs uppercase font-bold tracking-wider text-brandCream">Salsas adicionales (+S/ 3 c/u):</span>
+              <span id="extra-sauces-count" class="text-xs font-mono text-brandRed font-bold">0 extras</span>
+            </div>
+
+            <!-- Extra Sauces List -->
+            <div id="extra-sauces-list" class="space-y-2 max-h-32 overflow-y-auto pr-1">
+              <!-- Dynamically added extra sauce pots -->
+            </div>
+
+            <button type="button" onclick="addExtraSauceInput()" class="w-full py-2 bg-brandDark hover:bg-brandBorder border border-dashed border-brandBorder hover:border-brandRed text-xs text-brandCreamMuted hover:text-white rounded-lg flex items-center justify-center gap-2 transition-colors">
+              <span class="text-brandRed font-bold text-sm">+</span> Añadir otra salsera (+S/ 3)
+            </button>
+          </div>
+
+          <!-- Box Quantity Selector -->
+          <div class="pt-2 border-t border-brandBorder/60 flex items-center justify-between">
+            <span class="text-xs uppercase font-bold tracking-wider text-brandCream">Cajas de 6 unid:</span>
+            <div class="flex items-center gap-3 bg-brandDark p-1 rounded-xl border border-brandBorder">
+              <button onclick="changeModalBoxQty(-1)" class="w-7 h-7 rounded-lg bg-brandCard hover:bg-brandRed text-brandCream hover:text-white flex items-center justify-center font-bold text-sm transition-colors">-</button>
+              <span id="modal-box-qty" class="w-6 text-center font-bold text-sm">1</span>
+              <button onclick="changeModalBoxQty(1)" class="w-7 h-7 rounded-lg bg-brandCard hover:bg-brandRed text-brandCream hover:text-white flex items-center justify-center font-bold text-sm transition-colors">+</button>
+            </div>
+          </div>
+
+          <!-- Real-Time Total Price and Add Button -->
+          <div class="pt-3 border-t border-brandBorder space-y-3">
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-brandCreamMuted">Subtotal configuración:</span>
+              <span id="modal-calculated-total" class="text-xl font-extrabold text-brandRed">S/ 0.00</span>
+            </div>
+
+            <button id="modal-add-to-cart-btn" onclick="commitModalAddToCart()" class="w-full py-3.5 bg-brandRed hover:bg-brandRedHover text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-brandRed/20 transition-all flex items-center justify-center gap-2 active:scale-98">
+              <span>Añadir a mi pedido</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Cart / Order Summary Slide-out Drawer -->
+  <div id="cart-drawer" class="fixed inset-y-0 right-0 z-50 w-full sm:w-[420px] bg-brandDark border-l border-brandBorder transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+    
+    <!-- Drawer Header -->
+    <div class="p-6 border-b border-brandBorder flex items-center justify-between bg-brandCard/50">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full border border-brandRed flex items-center justify-center text-brandRed">
+          <svg class="w-4 h-4 stroke-brandRed fill-none" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round">
+            <line x1="4" y1="20" x2="20" y2="4" />
+            <line x1="7" y1="20" x2="21" y2="6" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-display font-extrabold text-lg text-brandCream">Tu Pedido klon</h3>
+          <span class="text-[11px] text-brandCreamMuted">Resumen de makis y salseras</span>
+        </div>
+      </div>
+      <button onclick="toggleCartDrawer(false)" class="w-8 h-8 rounded-full bg-brandDark border border-brandBorder hover:border-brandRed text-brandCreamMuted hover:text-white flex items-center justify-center transition-colors">
+        ✕
+      </button>
+    </div>
+
+    <!-- Items List (Scrollable) -->
+    <div id="cart-items-container" class="flex-1 p-6 overflow-y-auto space-y-4 divide-y divide-brandBorder/60">
+      <!-- Injected dynamically: if empty shows empty notice with minimalist outline SVG -->
+      <div class="text-center py-16 text-brandCreamMuted space-y-3">
+        <div class="w-12 h-12 mx-auto border border-brandBorder/80 rounded-full flex items-center justify-center text-brandCreamMuted/40">
+          <svg class="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="1.5">
+            <ellipse cx="12" cy="12" rx="9" ry="6" />
+            <ellipse cx="12" cy="12" rx="4" ry="2.5" />
+          </svg>
+        </div>
+        <p class="text-sm">Tu canasta está vacía por ahora.</p>
+        <a href="#menu" onclick="toggleCartDrawer(false)" class="inline-block text-xs uppercase tracking-wider text-brandRed font-semibold hover:underline">
+          Ver Sabores Klon →
+        </a>
+      </div>
+    </div>
+
+    <!-- Drawer Footer / Checkout -->
+    <div class="p-6 border-t border-brandBorder bg-brandCard/60 space-y-4">
+      
+      <!-- Order Grand Total Breakdown -->
+      <div class="space-y-1.5 text-xs text-brandCreamMuted">
+        <div class="flex justify-between">
+          <span>Items en total:</span>
+          <span id="cart-items-count-summary" class="font-mono text-brandCream">0 items</span>
+        </div>
+        <div class="flex justify-between text-base font-bold text-brandCream pt-2 border-t border-brandBorder/60">
+          <span>Total a Pagar:</span>
+          <span id="cart-grand-total" class="text-brandRed text-xl font-extrabold">S/ 0.00</span>
+        </div>
+      </div>
+
+      <!-- Quick Delivery Inputs for WhatsApp Message -->
+      <div class="space-y-2 pt-2">
+        <input type="text" id="cust-name" placeholder="Tu Nombre y Apellido" class="w-full px-3 py-2 text-xs bg-brandDark border border-brandBorder rounded-lg text-brandCream focus:border-brandRed focus:outline-none" />
+        <input type="text" id="cust-address" placeholder="Dirección de entrega en Lima (o recojo)" class="w-full px-3 py-2 text-xs bg-brandDark border border-brandBorder rounded-lg text-brandCream focus:border-brandRed focus:outline-none" />
+      </div>
+
+      <!-- WhatsApp Order Confirmation Button -->
+      <button onclick="sendOrderViaWhatsApp()" class="w-full py-4 bg-[#25D366] hover:bg-[#1EBE5B] text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 active:scale-98">
+        <svg class="w-4 h-4 fill-black" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span>Confirmar pedido vía WhatsApp</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Floating Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-brandCard border border-brandRed text-brandCream px-4 py-3 rounded-xl shadow-xl flex items-center gap-3">
+    <span class="text-brandRed text-base font-bold">✓</span>
+    <span id="toast-msg" class="text-xs font-medium">Producto añadido a tu pedido</span>
+  </div>
+
+  <!-- Dedicated Custom Box-Builder Modal (6 pieces from the 14 flavors) -->
+  <div id="box-builder-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="relative w-full max-w-4xl bg-brandCard border border-brandBorder rounded-2xl p-5 sm:p-8 max-h-[92vh] overflow-y-auto shadow-2xl text-brandCream transform scale-95 transition-transform duration-300 space-y-6" id="box-builder-container">
+      
+      <!-- Close Button -->
+      <button onclick="closeBoxBuilderModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-brandDark border border-brandBorder hover:border-brandRed text-brandCreamMuted hover:text-white flex items-center justify-center transition-colors z-20">
+        ✕
+      </button>
+
+      <!-- Modal Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-brandBorder/70 pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-brandRed"></span>
+            <span class="text-xs uppercase tracking-widest text-brandRed font-bold">Box Customizer klon</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-brandCream mt-1">Arma tu Caja Bento (6 Makis)</h2>
+          <p class="text-xs text-brandCreamMuted">Elige exactamente 6 piezas combinando libremente la línea frutal y pastelera.</p>
+        </div>
+
+        <!-- 6-Piece Progress Pill -->
+        <div class="flex items-center gap-3 bg-brandDark border border-brandBorder px-4 py-2 rounded-xl self-start sm:self-auto">
+          <div class="text-right">
+            <div id="builder-count-label" class="text-sm font-bold font-mono text-brandCream">0 de 6 piezas</div>
+            <div id="builder-status-text" class="text-[10px] text-brandRed">Faltan 6 piezas</div>
+          </div>
+          <div class="w-10 h-10 rounded-full border border-brandRed/50 flex items-center justify-center font-bold text-xs bg-brandRed/10 text-brandRed" id="builder-badge-ring">
+            0/6
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Bento Tray (6 slots) -->
+      <div class="bg-brandDark/70 border border-brandBorder rounded-xl p-4 space-y-2">
+        <div class="flex items-center justify-between text-[11px] text-brandCreamMuted">
+          <span class="uppercase tracking-wider font-semibold">Tu Bento en Vivo:</span>
+          <span>Base Caja: S/ 20.00</span>
+        </div>
+        
+        <div class="grid grid-cols-6 gap-2 sm:gap-3" id="builder-slots-grid">
+          <!-- 6 Slots populated by JS -->
+        </div>
+      </div>
+
+      <!-- Flavors Grid (14 choices) -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs uppercase font-bold tracking-wider text-brandCream">Selecciona tus sabores (14 disponibles):</span>
+          <span class="text-[11px] text-brandCreamMuted/80">Haz clic en + para sumar piezas</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 max-h-72 overflow-y-auto pr-1" id="builder-flavor-grid">
+          <!-- 14 Flavor selector rows injected via JS -->
+        </div>
+      </div>
+
+      <!-- Sauce Customization Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4 border-t border-brandBorder/70">
+        
+        <!-- Included Sauce -->
+        <div class="space-y-2">
+          <label class="text-xs uppercase font-bold tracking-wider text-brandCream flex items-center gap-1.5">
+            <span>Salsa incluida:</span>
+            <span class="text-brandRed text-[10px] font-bold">(1 Gratis)</span>
+          </label>
+          <div class="grid grid-cols-2 gap-2 text-xs" id="builder-included-sauces">
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors">
+              <input type="radio" name="builder-free-sauce" value="Chocolate" checked class="accent-brandRed" />
+              <span>Chocolate</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors">
+              <input type="radio" name="builder-free-sauce" value="Pistachio Cream" class="accent-brandRed" />
+              <span>Pistachio</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors">
+              <input type="radio" name="builder-free-sauce" value="Dulce de Leche" class="accent-brandRed" />
+              <span>Dulce de Leche</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors">
+              <input type="radio" name="builder-free-sauce" value="Fruit Jam" class="accent-brandRed" />
+              <span>Fruit Jam</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Extra Sauces (+S/3 each) -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs uppercase font-bold tracking-wider text-brandCream">Salseras extras (+S/ 3 c/u):</span>
+            <span id="builder-extras-count" class="text-xs font-mono text-brandRed font-bold">0 extras</span>
+          </div>
+          <div id="builder-extra-sauces-list" class="space-y-1.5 max-h-24 overflow-y-auto pr-1">
+            <!-- Dynamic extra sauces for custom box -->
+          </div>
+          <button type="button" onclick="addBuilderExtraSauce()" class="w-full py-2 bg-brandDark hover:bg-brandBorder border border-dashed border-brandBorder hover:border-brandRed text-xs text-brandCreamMuted hover:text-white rounded-lg flex items-center justify-center gap-1.5 transition-colors">
+            <span class="text-brandRed font-bold text-sm">+</span> Añadir otra salsera (+S/ 3)
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Builder Footer Checkout / Add to Cart -->
+      <div class="pt-4 border-t border-brandBorder flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs text-brandCreamMuted">Total Caja Personalizada (6 piezas):</span>
+          <div class="text-2xl font-extrabold text-brandRed" id="builder-grand-total">S/ 20.00</div>
+        </div>
+
+        <button id="builder-confirm-btn" onclick="commitCustomBoxToCart()" disabled class="px-8 py-3.5 bg-brandRed/40 text-brandCreamMuted cursor-not-allowed font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
+          <span>Completar 6 piezas para agregar</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    /* Product Catalog Data (14 items: 7 fruit line + 7 pastry line) with clearly named local image slots */
+    const PRODUCTS = [
+      // Fruit Line (7 items)
+      {
+        id: 'f1',
+        line: 'fruit',
+        name: 'Fresa-Plátano-Choco',
+        price: 18,
+        defaultSauce: 'Chocolate',
+        desc: 'Crepe dulce artesanal con láminas de fresa fresca de Huaura, plátano de seda caramelizado y centro fundente de chocolate.',
+        image: 'fresa-platano-choco.png',
+        imageScale: 'scale-100', // Reference baseline zoom
+        availableToppings: ['Nibs de cacao orgánico', 'Pecanas tostadas']
+      },
+      {
+        id: 'f2',
+        line: 'fruit',
+        name: 'Kiwi-Pistacho',
+        price: 19,
+        defaultSauce: 'Pistachio Cream',
+        desc: 'Equilibrio cítrico de kiwi verde laminado con una base untuosa de crema de pistacho tostado de Bronte.',
+        image: 'kiwi-pistacho.png',
+        imageScale: 'scale-[0.96]', // Normalizes slightly larger diameter
+        availableToppings: ['Pistacho tostado picado', 'Té matcha en polvo']
+      },
+      {
+        id: 'f3',
+        line: 'fruit',
+        name: 'Mango-Piña-Durazno',
+        price: 18,
+        defaultSauce: 'Fruit Jam',
+        desc: 'Maki refrescante de mango de Casma, trozos de piña golden y duraznos seleccionados sobre crema ligera.',
+        image: 'mango-pina-durazno.png',
+        imageScale: 'scale-100', // Aligns with baseline
+        availableToppings: ['Coco laminado tostado']
+      },
+      {
+        id: 'f4',
+        line: 'fruit',
+        name: 'Berries Mix',
+        price: 20,
+        defaultSauce: 'Fruit Jam',
+        desc: 'Explosión antioxidante de frambuesas, moras y arándanos silvestres sobre crema chantilly ligera.',
+        image: 'berries-mix.png',
+        imageScale: 'scale-[1.03]', // Optical balance with darker berries
+        availableToppings: ['Polvo de frambuesa liofilizada', 'Crumble crocante']
+      },
+      {
+        id: 'f5',
+        line: 'fruit',
+        name: 'Manzana-Canela',
+        price: 17,
+        defaultSauce: 'Dulce de Leche',
+        desc: 'Manzanas asadas al dente con canela de Ceilán, masa de crepe especiada y caramelo tibio.',
+        image: 'manzana-canela.png',
+        altImage: 'manzana-canela.jpg', // Supports both .png and .jpg uploads seamlessly
+        imageScale: 'scale-[1.10]', // Calibrates slightly farther shot to match the others
+        availableToppings: ['Pecanas picadas tostadas', 'Galleta de canela triturada']
+      },
+      {
+        id: 'f6',
+        line: 'fruit',
+        name: 'Higo-Tuna con Salsa de Camu Camu',
+        price: 17,
+        defaultSauce: 'Fruit Jam',
+        desc: 'Delicada combinación de higos maduros y tuna andina envuelta en crepe artesanal, acompañada de reducción silvestre de camu camu.',
+        image: 'higo-tuna-camu-camu.png',
+        imageScale: 'scale-100', // Aligns with baseline
+        availableToppings: ['Semillas tostadas', 'Crumble crocante']
+      },
+      {
+        id: 'f7',
+        line: 'fruit',
+        name: 'Frutos Rojos-Nutella',
+        price: 19,
+        defaultSauce: 'Chocolate',
+        desc: 'Corazón de Nutella cremosa envuelto en masa de cacao y coronado con trozos de fresas y grosellas.',
+        image: 'frutos-rojos-nutella.png',
+        imageScale: 'scale-[1.02]', // Optical balance
+        availableToppings: ['Avellanas tostadas picadas']
+      },
+
+      // Pastry Line (7 items)
+      {
+        id: 'p1',
+        line: 'pastry',
+        name: 'Red Velvet Roll',
+        price: 21,
+        defaultSauce: 'Fruit Jam',
+        desc: 'Bizcochuelo rojo aterciopelado enrollado con frosting de cream cheese de vainilla y polvo de frambuesa.',
+        image: 'images/products/red-velvet-roll.jpg',
+        imageScale: 'scale-100',
+        availableToppings: ['Polvo de frambuesa liofilizada', 'Virutas de chocolate blanco']
+      },
+      {
+        id: 'p2',
+        line: 'pastry',
+        name: 'Tres Leches Roll',
+        price: 20,
+        defaultSauce: 'Dulce de Leche',
+        desc: 'Emblema latino: bizcocho genovés embebido en infusión de tres leches y canela, envuelto sin perder humedad.',
+        image: 'images/products/tres-leches-roll.jpg',
+        imageScale: 'scale-100',
+        availableToppings: ['Canela de Ceilán extra']
+      },
+      {
+        id: 'p3',
+        line: 'pastry',
+        name: 'Chocolate Roll',
+        price: 19,
+        defaultSauce: 'Chocolate',
+        desc: 'Trilogía de chocolate: crepe de cacao puro 70%, ganache untuosa de trufa y crujiente de nibs orgánicos.',
+        image: 'images/products/chocolate-roll.jpg',
+        imageScale: 'scale-100',
+        availableToppings: ['Nibs de cacao orgánico', 'Avellanas picadas']
+      },
+      {
+        id: 'p4',
+        line: 'pastry',
+        name: 'Cheesecake Roll',
+        price: 21,
+        defaultSauce: 'Fruit Jam',
+        desc: 'Clásico New York Cheesecake enrollado con crumble crocante de galleta graham y coulis de frutos rojos.',
+        image: 'images/products/cheesecake-roll.jpg',
+        imageScale: 'scale-100',
+        availableToppings: ['Crumble de galleta Graham', 'Polvo de frutos rojos']
+      },
+      {
+        id: 'p5',
+        line: 'pastry',
+        name: 'Tiramisu Roll',
+        price: 22,
+        defaultSauce: 'Chocolate',
+        desc: 'Capas de soletilla embebidas en espresso peruano, crema de mascarpone aireada y velo de cacao amargo.',
+        image: 'images/products/tiramisu-roll.jpg',
+        imageScale: 'scale-100',
+        availableToppings: ['Cacao amargo puro extra', 'Virutas de chocolate bitter']
+      },
+      {
+        id: 'p6',
+        line: 'pastry',
+        name: 'Carrot Cake Roll',
+        price: 19,
+        defaultSauce: 'Dulce de Leche',
+        desc: 'Roll de zanahoria fresca, nueces pecanas tostadas y suave relleno de crema de queso y especias dulces.',
+        image: 'images/products/carrot-cake-roll.jpg',
+        imageScale: 'scale-100',
+        availableToppings: ['Nueces pecanas tostadas', 'Crumble de especias']
+      },
+      {
+        id: 'p7',
+        line: 'pastry',
+        name: 'Lemon Meringue Roll',
+        price: 20,
+        defaultSauce: 'Dulce de Leche',
+        desc: 'Curd de limón sutilmente ácido con un acabado exterior de merengue suizo flameado con soplete.',
+        image: 'images/products/lemon-meringue-roll.jpg',
+        imageScale: 'scale-100',
+        availableToppings: ['Ralladura de lima confitada']
+      }
+    ];
+
+    /* Featured Combos Data - Recalculated with mathematically consistent per-piece pricing */
+    const COMBOS = [
+      {
+        id: 'combo-1',
+        name: 'Klon Classic Combo',
+        piecesText: '7 piezas frutales',
+        price: 20, // Avg fruit piece ~S/3.05 x 7 = S/21.35 -> S/20 bundle price (~6% discount)
+        desc: 'Una degustación completa de cada creación frutal de nuestra carta.',
+        image: 'images/combos/klon-classic-combo.jpg'
+      },
+      {
+        id: 'combo-2',
+        name: 'Klon Pastry Combo',
+        piecesText: '7 piezas pasteleras',
+        price: 22, // Avg pastry piece ~S/3.38 x 7 = S/23.66 -> S/22 bundle price (~7% discount)
+        desc: 'Toda la línea de pastelería artesanal transformada en rollos de postre.',
+        image: 'images/combos/klon-pastry-combo.jpg'
+      },
+      {
+        id: 'combo-3',
+        name: 'Klon Mixed Combo',
+        piecesText: '14 piezas (7+7)',
+        price: 40, // (7 fruit + 7 pastry) = S/45.00 -> S/40 bundle price (~11% discount)
+        desc: 'La experiencia total: 1 maki de cada sabor de la carta para compartir.',
+        image: 'images/combos/klon-mixed-combo.jpg'
+      },
+      {
+        id: 'combo-4',
+        name: 'Klon Solo Combo',
+        piecesText: '4 piezas de elección',
+        price: 12, // 4 pieces choice avg ~S/3.21 x 4 = S/12.84 -> S/12 bundle price (~7% discount)
+        desc: 'Tu selección personal en caja individual compacta con palillos.',
+        image: 'images/combos/klon-solo-combo.jpg'
+      }
+    ];
+
+    let cart = [];
+    let currentFilter = 'all';
+
+    // Current product modal working state
+    let activeProduct = null;
+    let modalBoxQty = 1;
+    let modalExtraSauces = []; // Array of flavor strings
+    let modalSelectedToppings = [];
+    let builderSelections = {};
+    let builderExtraSauces = [];
+
+    // Generates an elegant Japanese-styled SVG data URI placeholder if local images fail to load
+    function getFallbackPlaceholder(label = 'klon') {
+      const cleanLabel = (label || 'klon').replace(/[<>&"]/g, '');
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+        <rect width="400" height="400" fill="#141414"/>
+        <circle cx="200" cy="180" r="60" fill="none" stroke="#D8322A" stroke-width="2" stroke-dasharray="4 6" opacity="0.6"/>
+        <circle cx="200" cy="180" r="40" fill="none" stroke="#FAECE7" stroke-width="1.5" opacity="0.4"/>
+        <circle cx="200" cy="180" r="18" fill="#D8322A" opacity="0.2"/>
+        <text x="200" y="280" fill="#FAECE7" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="600" text-anchor="middle" letter-spacing="1" opacity="0.75">${cleanLabel.toUpperCase()}</text>
+        <text x="200" y="305" fill="#D8322A" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="700" text-anchor="middle" letter-spacing="2" opacity="0.8">KLON · DESSERT MAKI</text>
+      </svg>`;
+      return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+    }
+
+    // Isolated error event handler with format fallback (.png <-> .jpg) and safe SVG fallback
+    function handleImageFallback(img) {
+      const altSrc = img.getAttribute('data-alt-src');
+      if (altSrc && img.src !== altSrc && !img.dataset.triedAlt) {
+        img.dataset.triedAlt = 'true';
+        img.src = altSrc;
+        return;
+      }
+
+      // Check if trying other common extension
+      if (!img.dataset.triedExt) {
+        img.dataset.triedExt = 'true';
+        if (img.src.endsWith('.png')) {
+          img.src = img.src.replace(/\.png$/, '.jpg');
+          return;
+        } else if (img.src.endsWith('.jpg')) {
+          img.src = img.src.replace(/\.jpg$/, '.png');
+          return;
+        }
+      }
+
+      img.onerror = null;
+      const label = img.getAttribute('data-label') || 'klon';
+      img.src = getFallbackPlaceholder(label);
+    }
+
+    function renderProducts() {
+      const fruitContainer = document.getElementById('fruit-line-section');
+      const pastryContainer = document.getElementById('pastry-line-section');
+      const divider = document.getElementById('menu-subdivider');
+
+      const fruitGrid = document.getElementById('fruit-products-grid');
+      const pastryGrid = document.getElementById('pastry-products-grid');
+
+      fruitGrid.innerHTML = '';
+      pastryGrid.innerHTML = '';
+
+      if (currentFilter === 'fruit') {
+        fruitContainer.classList.remove('hidden');
+        pastryContainer.classList.add('hidden');
+        divider.classList.add('hidden');
+      } else if (currentFilter === 'pastry') {
+        fruitContainer.classList.add('hidden');
+        pastryContainer.classList.remove('hidden');
+        divider.classList.add('hidden');
+      } else {
+        fruitContainer.classList.remove('hidden');
+        pastryContainer.classList.remove('hidden');
+        divider.classList.remove('hidden');
+      }
+
+      function buildCard(product) {
+        const card = document.createElement('div');
+        card.className = 'group bg-brandCard border border-brandBorder hover:border-brandRed/60 rounded-2xl overflow-hidden transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-brandRed/5 cursor-pointer';
+        card.onclick = () => openProductModal(product.id);
+
+        const scaleClass = product.imageScale || 'scale-100';
+        const altAttr = product.altImage ? `data-alt-src="${product.altImage}"` : '';
+
+        card.innerHTML = `
+          <div>
+            <div class="maki-photo-frame">
+              <img src="${product.image}" alt="${product.name}" data-label="${product.name}" ${altAttr} class="maki-photo-img ${scaleClass}" onerror="handleImageFallback(this);" />
+              <!-- Subtle vignette overlay for lighting consistency -->
+              <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-brandCard via-transparent to-black/20 opacity-70"></div>
+              
+              <div class="absolute top-3 left-3 z-10">
+                <span class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 bg-brandDark/90 backdrop-blur-sm border border-brandBorder text-brandCream rounded-lg shadow-sm">
+                  ${product.line === 'fruit' ? 'Frutal' : 'Pastelera'}
+                </span>
+              </div>
+              <div class="absolute bottom-3 right-3 z-10">
+                <span class="text-xs font-extrabold px-3 py-1.5 bg-brandRed text-white rounded-lg shadow-lg shadow-brandRed/30">
+                  S/ ${product.price.toFixed(2)}
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 space-y-2">
+              <h3 class="font-display font-bold text-base text-brandCream group-hover:text-brandRed transition-colors leading-snug">
+                ${product.name}
+              </h3>
+              <p class="text-xs text-brandCreamMuted line-clamp-2 font-light leading-relaxed">
+                ${product.desc}
+              </p>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0">
+            <div class="pt-3 border-t border-brandBorder/60 flex items-center justify-between text-xs text-brandCreamMuted">
+              <span class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brandRed inline-block"></span>
+                Caja 6 uds.
+              </span>
+              <span class="text-brandRed font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                Personalizar →
+              </span>
+            </div>
+          </div>
+        `;
+        return card;
+      }
+
+      PRODUCTS.forEach(product => {
+        if (product.line === 'fruit') {
+          fruitGrid.appendChild(buildCard(product));
+        } else {
+          pastryGrid.appendChild(buildCard(product));
+        }
+      });
+    }
+
+    function renderCombos() {
+      const grid = document.getElementById('combos-grid');
+      grid.innerHTML = '';
+
+      COMBOS.forEach(combo => {
+        const qty = comboQuantities[combo.id] || 1;
+        const currentTotal = (combo.price * qty).toFixed(2);
+
+        const card = document.createElement('div');
+        card.className = 'bg-brandDark border border-brandBorder hover:border-brandRed/70 rounded-2xl p-6 flex flex-col justify-between transition-all duration-200 relative group overflow-hidden';
+        
+        card.innerHTML = `
+          <div class="space-y-4">
+            <div class="aspect-[16/9] rounded-xl overflow-hidden bg-brandCard border border-brandBorder relative">
+              <img src="${combo.image}" alt="${combo.name}" data-label="${combo.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="handleImageFallback(this);" />
+              <span class="absolute top-2 right-2 text-[10px] font-mono px-2 py-0.5 bg-brandDark/90 border border-brandBorder text-brandCream rounded">
+                ${combo.piecesText}
+              </span>
+            </div>
+
+            <div>
+              <h3 class="font-display font-bold text-lg text-brandCream group-hover:text-brandRed transition-colors">
+                ${combo.name}
+              </h3>
+              <p class="text-xs text-brandCreamMuted mt-1.5 font-light leading-relaxed">
+                ${combo.desc}
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-6 mt-4 border-t border-brandBorder/60 space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-brandCreamMuted uppercase tracking-wider">Subtotal:</span>
+              <span id="price-${combo.id}" class="text-xl font-extrabold text-brandCream">S/ ${currentTotal}</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <div class="flex items-center bg-brandCard border border-brandBorder rounded-lg p-1">
+                <button type="button" onclick="updateComboCardQty('${combo.id}', -1)" class="w-6 h-6 text-xs text-brandCream hover:bg-brandDark rounded flex items-center justify-center font-bold active:scale-90">-</button>
+                <span id="qty-${combo.id}" class="w-6 text-center text-xs font-bold font-mono">${qty}</span>
+                <button type="button" onclick="updateComboCardQty('${combo.id}', 1)" class="w-6 h-6 text-xs text-brandCream hover:bg-brandDark rounded flex items-center justify-center font-bold active:scale-90">+</button>
+              </div>
+
+              <button onclick="addComboToCart('${combo.id}')" class="flex-1 py-2.5 bg-brandCardHover hover:bg-brandRed hover:text-white border border-brandBorder text-xs uppercase tracking-wider font-semibold rounded-lg transition-colors flex items-center justify-center gap-1.5 active:scale-95">
+                <span>+ Agregar</span>
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterMenu(line) {
+      currentFilter = line;
+      document.querySelectorAll('.menu-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-brandRed', 'text-white');
+        btn.classList.add('text-brandCreamMuted');
+      });
+
+      const activeBtn = document.getElementById(line === 'all' ? 'tab-all' : (line === 'fruit' ? 'tab-fruit' : 'tab-pastry'));
+      if (activeBtn) {
+        activeBtn.classList.remove('text-brandCreamMuted');
+        activeBtn.classList.add('bg-brandRed', 'text-white');
+      }
+
+      renderProducts();
+    }
+
+    function openProductModal(productId) {
+      activeProduct = PRODUCTS.find(p => p.id === productId);
+      if (!activeProduct) return;
+
+      modalBoxQty = 1;
+      modalExtraSauces = [];
+      modalSelectedToppings = [];
+
+      document.getElementById('modal-title').innerText = activeProduct.name;
+      document.getElementById('modal-desc').innerText = activeProduct.desc;
+      document.getElementById('modal-base-price').innerText = `S/ ${activeProduct.price.toFixed(2)}`;
+      
+      const modalImg = document.getElementById('modal-img');
+      modalImg.className = `w-full h-full object-cover ${activeProduct.imageScale || 'scale-100'} transition-transform duration-300`;
+      modalImg.style.objectPosition = '50% 49%';
+      modalImg.setAttribute('data-label', activeProduct.name);
+      if (activeProduct.altImage) {
+        modalImg.setAttribute('data-alt-src', activeProduct.altImage);
+      } else {
+        modalImg.removeAttribute('data-alt-src');
+      }
+      modalImg.dataset.triedAlt = '';
+      modalImg.dataset.triedExt = '';
+      modalImg.src = activeProduct.image;
+      modalImg.onerror = function() {
+        handleImageFallback(this);
+      };
+
+      document.getElementById('modal-line-tag').innerText = activeProduct.line === 'fruit' ? 'Línea Frutal' : 'Línea Pastelera';
+      document.getElementById('modal-box-qty').innerText = modalBoxQty;
+
+      // Render Toppings if product supports them
+      const toppingsWrapper = document.getElementById('modal-toppings-wrapper');
+      const toppingsContainer = document.getElementById('modal-toppings-container');
+      const toppingsCount = document.getElementById('modal-toppings-count');
+      toppingsCount.innerText = '0 seleccionados';
+      toppingsContainer.innerHTML = '';
+
+      if (activeProduct.availableToppings && activeProduct.availableToppings.length > 0) {
+        toppingsWrapper.classList.remove('hidden');
+        activeProduct.availableToppings.forEach(toppingName => {
+          const label = document.createElement('label');
+          label.className = 'flex items-center justify-between p-2 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors';
+          label.innerHTML = `
+            <div class="flex items-center gap-2">
+              <input type="checkbox" value="${toppingName}" onchange="toggleModalTopping('${toppingName}', this.checked)" class="accent-brandRed rounded" />
+              <span class="text-[11px] text-brandCream">${toppingName}</span>
+            </div>
+            <span class="text-[10px] font-mono text-brandRed">+S/ 2</span>
+          `;
+          toppingsContainer.appendChild(label);
+        });
+      } else {
+        toppingsWrapper.classList.add('hidden');
+      }
+
+      // Pre-select included default sauce
+      const sauceRadios = document.querySelectorAll('input[name="included-sauce"]');
+      sauceRadios.forEach(radio => {
+        radio.checked = (radio.value === activeProduct.defaultSauce);
+      });
+
+      renderExtraSaucesList();
+      recalculateModalPrice();
+
+      // Show modal
+      const modal = document.getElementById('product-modal');
+      const container = document.getElementById('modal-container');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      container.classList.remove('scale-95');
+      container.classList.add('scale-100');
+    }
+
+    function toggleModalTopping(toppingName, isChecked) {
+      if (isChecked) {
+        modalSelectedToppings.push(toppingName);
+      } else {
+        modalSelectedToppings = modalSelectedToppings.filter(t => t !== toppingName);
+      }
+      document.getElementById('modal-toppings-count').innerText = `${modalSelectedToppings.length} seleccionado${modalSelectedToppings.length === 1 ? '' : 's'}`;
+      recalculateModalPrice();
+    }
+
+    function closeProductModal() {
+      const modal = document.getElementById('product-modal');
+      const container = document.getElementById('modal-container');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      container.classList.add('scale-95');
+      container.classList.remove('scale-100');
+    }
+
+    function changeModalBoxQty(delta) {
+      modalBoxQty = Math.max(1, modalBoxQty + delta);
+      document.getElementById('modal-box-qty').innerText = modalBoxQty;
+      recalculateModalPrice();
+    }
+
+    function addExtraSauceInput() {
+      modalExtraSauces.push('Chocolate');
+      renderExtraSaucesList();
+      recalculateModalPrice();
+    }
+
+    function removeExtraSauceInput(index) {
+      modalExtraSauces.splice(index, 1);
+      renderExtraSaucesList();
+      recalculateModalPrice();
+    }
+
+    function updateExtraSauceFlavor(index, newFlavor) {
+      modalExtraSauces[index] = newFlavor;
+    }
+
+    function renderExtraSaucesList() {
+      const container = document.getElementById('extra-sauces-list');
+      const countLabel = document.getElementById('extra-sauces-count');
+      countLabel.innerText = `${modalExtraSauces.length} extra${modalExtraSauces.length === 1 ? '' : 's'} (+S/ ${modalExtraSauces.length * 3})`;
+
+      container.innerHTML = '';
+      modalExtraSauces.forEach((flavor, idx) => {
+        const row = document.createElement('div');
+        row.className = 'flex items-center gap-2 bg-brandDark p-2 rounded-lg border border-brandBorder';
+        row.innerHTML = `
+          <span class="text-xs text-brandRed font-mono font-bold">#${idx + 1}</span>
+          <select onchange="updateExtraSauceFlavor(${idx}, this.value)" class="flex-1 bg-brandCard border border-brandBorder text-xs text-brandCream rounded p-1 focus:outline-none">
+            <option value="Chocolate" ${flavor === 'Chocolate' ? 'selected' : ''}>Chocolate (+S/3)</option>
+            <option value="Pistachio Cream" ${flavor === 'Pistachio Cream' ? 'selected' : ''}>Pistachio Cream (+S/3)</option>
+            <option value="Dulce de Leche" ${flavor === 'Dulce de Leche' ? 'selected' : ''}>Dulce de Leche (+S/3)</option>
+            <option value="Fruit Jam" ${flavor === 'Fruit Jam' ? 'selected' : ''}>Fruit Jam (+S/3)</option>
+          </select>
+          <button type="button" onclick="removeExtraSauceInput(${idx})" class="text-xs text-brandCreamMuted hover:text-brandRed px-2 py-1">✕</button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function recalculateModalPrice() {
+      if (!activeProduct) return;
+      // Formula: ((base price + toppings) × number of boxes) + (S/3 × extra pots)
+      const toppingsPerBox = modalSelectedToppings.length * 2;
+      const basePlusToppings = activeProduct.price + toppingsPerBox;
+      const baseTotal = basePlusToppings * modalBoxQty;
+      const extrasTotal = modalExtraSauces.length * 3;
+      const grandTotal = baseTotal + extrasTotal;
+
+      // Update base price header with live calculation details
+      const basePriceLabel = document.getElementById('modal-base-price');
+      if (modalBoxQty > 1 || toppingsPerBox > 0) {
+        basePriceLabel.innerHTML = `<span>S/ ${baseTotal.toFixed(2)}</span> <span class="text-[10px] font-normal text-brandCreamMuted">(${modalBoxQty}x S/ ${basePlusToppings.toFixed(2)})</span>`;
+      } else {
+        basePriceLabel.innerText = `S/ ${activeProduct.price.toFixed(2)}`;
+      }
+
+      // Update prominent footer calculated total
+      document.getElementById('modal-calculated-total').innerText = `S/ ${grandTotal.toFixed(2)}`;
+    }
+
+    function commitModalAddToCart() {
+      if (!activeProduct) return;
+
+      const checkedSauce = document.querySelector('input[name="included-sauce"]:checked');
+      const chosenSauce = checkedSauce ? checkedSauce.value : activeProduct.defaultSauce;
+
+      const toppingsPerBox = modalSelectedToppings.length * 2;
+      const itemTotal = ((activeProduct.price + toppingsPerBox) * modalBoxQty) + (modalExtraSauces.length * 3);
+
+      const cartItem = {
+        cartId: 'item_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+        type: 'product',
+        productId: activeProduct.id,
+        name: activeProduct.name,
+        pricePerBox: activeProduct.price,
+        boxes: modalBoxQty,
+        includedSauce: chosenSauce,
+        extraSauces: [...modalExtraSauces],
+        toppings: [...modalSelectedToppings],
+        totalPrice: itemTotal
+      };
+
+      cart.push(cartItem);
+      updateCartUI();
+      closeProductModal();
+      showToast(`${modalBoxQty}x Caja(s) de ${activeProduct.name} añadidas.`);
+    }
+
+    /* Box-Builder Modal Functions */
+    function openBoxBuilderModal() {
+      // Reset builder selections
+      PRODUCTS.forEach(p => {
+        builderSelections[p.id] = 0;
+      });
+      builderExtraSauces = [];
+
+      renderBuilderUI();
+
+      const modal = document.getElementById('box-builder-modal');
+      const container = document.getElementById('box-builder-container');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      container.classList.remove('scale-95');
+      container.classList.add('scale-100');
+    }
+
+    function closeBoxBuilderModal() {
+      const modal = document.getElementById('box-builder-modal');
+      const container = document.getElementById('box-builder-container');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      container.classList.add('scale-95');
+      container.classList.remove('scale-100');
+    }
+
+    function getBuilderTotalPieces() {
+      return Object.values(builderSelections).reduce((sum, count) => sum + count, 0);
+    }
+
+    function updateBuilderPiece(productId, delta) {
+      const currentTotal = getBuilderTotalPieces();
+      const currentCount = builderSelections[productId] || 0;
+
+      if (delta > 0 && currentTotal >= 6) {
+        showToast('Ya has seleccionado las 6 piezas máximas.');
+        return;
+      }
+
+      const nextCount = Math.max(0, currentCount + delta);
+      builderSelections[productId] = nextCount;
+
+      renderBuilderUI();
+    }
+
+    function addBuilderExtraSauce() {
+      builderExtraSauces.push('Chocolate');
+      renderBuilderExtraSaucesList();
+      recalculateBuilderPrice();
+    }
+
+    function removeBuilderExtraSauce(index) {
+      builderExtraSauces.splice(index, 1);
+      renderBuilderExtraSaucesList();
+      recalculateBuilderPrice();
+    }
+
+    function updateBuilderExtraSauceFlavor(index, flavor) {
+      builderExtraSauces[index] = flavor;
+    }
+
+    function renderBuilderExtraSaucesList() {
+      const listContainer = document.getElementById('builder-extra-sauces-list');
+      const countLabel = document.getElementById('builder-extras-count');
+      countLabel.innerText = `${builderExtraSauces.length} extras (+S/ ${builderExtraSauces.length * 3})`;
+
+      listContainer.innerHTML = '';
+      builderExtraSauces.forEach((flavor, idx) => {
+        const row = document.createElement('div');
+        row.className = 'flex items-center gap-2 bg-brandDark p-1.5 rounded-lg border border-brandBorder';
+        row.innerHTML = `
+          <span class="text-[10px] text-brandRed font-mono font-bold">#${idx + 1}</span>
+          <select onchange="updateBuilderExtraSauceFlavor(${idx}, this.value)" class="flex-1 bg-brandCard border border-brandBorder text-[11px] text-brandCream rounded p-1 focus:outline-none">
+            <option value="Chocolate" ${flavor === 'Chocolate' ? 'selected' : ''}>Chocolate (+S/3)</option>
+            <option value="Pistachio Cream" ${flavor === 'Pistachio Cream' ? 'selected' : ''}>Pistachio Cream (+S/3)</option>
+            <option value="Dulce de Leche" ${flavor === 'Dulce de Leche' ? 'selected' : ''}>Dulce de Leche (+S/3)</option>
+            <option value="Fruit Jam" ${flavor === 'Fruit Jam' ? 'selected' : ''}>Fruit Jam (+S/3)</option>
+          </select>
+          <button type="button" onclick="removeBuilderExtraSauce(${idx})" class="text-xs text-brandCreamMuted hover:text-brandRed px-1">✕</button>
+        `;
+        listContainer.appendChild(row);
+      });
+    }
+
+    function recalculateBuilderPrice() {
+      const baseCustomBoxPrice = 20.00;
+      const extraSaucesCost = builderExtraSauces.length * 3.00;
+      const total = baseCustomBoxPrice + extraSaucesCost;
+
+      document.getElementById('builder-grand-total').innerText = `S/ ${total.toFixed(2)}`;
+    }
+
+    function renderBuilderUI() {
+      const totalSelected = getBuilderTotalPieces();
+
+      // Update counters & headers
+      document.getElementById('builder-count-label').innerText = `${totalSelected} de 6 piezas`;
+      document.getElementById('builder-badge-ring').innerText = `${totalSelected}/6`;
+
+      const statusText = document.getElementById('builder-status-text');
+      const confirmBtn = document.getElementById('builder-confirm-btn');
+
+      if (totalSelected === 6) {
+        statusText.innerText = '✓ ¡Caja completa!';
+        statusText.className = 'text-[10px] text-green-400 font-bold';
+        confirmBtn.disabled = false;
+        confirmBtn.className = 'px-8 py-3.5 bg-brandRed hover:bg-brandRedHover text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 active:scale-98 cursor-pointer';
+        confirmBtn.innerHTML = '<span>Agregar caja de 6 a mi pedido</span>';
+      } else {
+        const remaining = 6 - totalSelected;
+        statusText.innerText = `Falta${remaining === 1 ? '' : 'n'} ${remaining} pieza${remaining === 1 ? '' : 's'}`;
+        statusText.className = 'text-[10px] text-brandRed';
+        confirmBtn.disabled = true;
+        confirmBtn.className = 'px-8 py-3.5 bg-brandCard border border-brandBorder text-brandCreamMuted/50 font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 cursor-not-allowed';
+        confirmBtn.innerHTML = `<span>Elige ${remaining} pieza${remaining === 1 ? '' : 's'} más</span>`;
+      }
+
+      // Render 6 Live Slots Tray
+      const slotsGrid = document.getElementById('builder-slots-grid');
+      slotsGrid.innerHTML = '';
+
+      // Flatten chosen pieces into an array
+      const flatPieces = [];
+      PRODUCTS.forEach(p => {
+        const count = builderSelections[p.id] || 0;
+        for (let i = 0; i < count; i++) {
+          flatPieces.push(p);
+        }
+      });
+
+      for (let slotIndex = 0; slotIndex < 6; slotIndex++) {
+        const slotEl = document.createElement('div');
+        const piece = flatPieces[slotIndex];
+
+        if (piece) {
+          slotEl.className = 'aspect-square rounded-xl bg-brandCard border-2 border-brandRed/80 p-1 flex flex-col items-center justify-center relative shadow group';
+          slotEl.innerHTML = `
+            <div class="w-full h-full rounded-lg overflow-hidden bg-zinc-900 relative">
+              <img src="${piece.image}" alt="${piece.name}" data-label="${piece.name}" class="w-full h-full object-cover" onerror="handleImageFallback(this);" />
+              <button onclick="updateBuilderPiece('${piece.id}', -1)" class="absolute inset-0 bg-black/60 text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-xs">
+                ✕
+              </button>
+            </div>
+            <span class="text-[9px] font-bold text-brandCream truncate w-full text-center mt-1">${piece.name.split('-')[0].split(' ')[0]}</span>
+          `;
+        } else {
+          slotEl.className = 'aspect-square rounded-xl bg-brandDark/90 border border-dashed border-brandBorder flex flex-col items-center justify-center text-brandCreamMuted/40';
+          slotEl.innerHTML = `
+            <span class="text-xs font-mono">#${slotIndex + 1}</span>
+            <span class="text-[9px]">Vacío</span>
+          `;
+        }
+        slotsGrid.appendChild(slotEl);
+      }
+
+      // Render 14 flavors list
+      const flavorGrid = document.getElementById('builder-flavor-grid');
+      flavorGrid.innerHTML = '';
+
+      PRODUCTS.forEach(p => {
+        const count = builderSelections[p.id] || 0;
+        const row = document.createElement('div');
+        row.className = `p-2.5 rounded-xl border flex items-center justify-between gap-3 transition-colors ${count > 0 ? 'bg-brandCard border-brandRed/50' : 'bg-brandDark border-brandBorder/80'}`;
+
+        row.innerHTML = `
+          <div class="flex items-center gap-2.5 overflow-hidden">
+            <div class="w-9 h-9 rounded-lg overflow-hidden flex-shrink-0 bg-brandDark border border-brandBorder">
+              <img src="${p.image}" alt="${p.name}" data-label="${p.name}" class="w-full h-full object-cover" onerror="handleImageFallback(this);" />
+            </div>
+            <div class="truncate">
+              <div class="text-xs font-bold text-brandCream truncate">${p.name}</div>
+              <span class="text-[9px] uppercase tracking-wider text-brandCreamMuted/70">${p.line === 'fruit' ? 'Frutal' : 'Pastelera'}</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-1.5 flex-shrink-0 bg-brandDark border border-brandBorder rounded-lg p-1">
+            <button onclick="updateBuilderPiece('${p.id}', -1)" class="w-5 h-5 rounded hover:bg-brandBorder text-xs text-brandCream flex items-center justify-center font-bold transition-colors">-</button>
+            <span class="w-5 text-center text-xs font-bold font-mono text-brandCream">${count}</span>
+            <button onclick="updateBuilderPiece('${p.id}', 1)" class="w-5 h-5 rounded hover:bg-brandRed hover:text-white text-xs text-brandCream flex items-center justify-center font-bold transition-colors">+</button>
+          </div>
+        `;
+        flavorGrid.appendChild(row);
+      });
+
+      renderBuilderExtraSaucesList();
+      recalculateBuilderPrice();
+    }
+
+    function commitCustomBoxToCart() {
+      if (getBuilderTotalPieces() !== 6) {
+        showToast('Debes seleccionar exactamente 6 piezas.');
+        return;
+      }
+
+      const checkedSauce = document.querySelector('input[name="builder-free-sauce"]:checked');
+      const freeSauce = checkedSauce ? checkedSauce.value : 'Chocolate';
+
+      // Summary of chosen pieces
+      const itemsList = [];
+      PRODUCTS.forEach(p => {
+        const count = builderSelections[p.id] || 0;
+        if (count > 0) {
+          itemsList.push({ name: p.name, count: count });
+        }
+      });
+
+      const baseCustomBoxPrice = 20.00;
+      const extraCost = builderExtraSauces.length * 3.00;
+      const totalPrice = baseCustomBoxPrice + extraCost;
+
+      const cartItem = {
+        cartId: 'custom_box_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+        type: 'custom_box',
+        name: 'Caja Bento klon Personalizada (6 Makis)',
+        pieces: itemsList,
+        includedSauce: freeSauce,
+        extraSauces: [...builderExtraSauces],
+        totalPrice: totalPrice
+      };
+
+      cart.push(cartItem);
+      updateCartUI();
+      closeBoxBuilderModal();
+      showToast('Caja Bento personalizada añadida a tu pedido.');
+    }
+
+    const comboQuantities = {
+      'combo-1': 1,
+      'combo-2': 1,
+      'combo-3': 1,
+      'combo-4': 1
+    };
+
+    function updateComboCardQty(comboId, delta) {
+      comboQuantities[comboId] = Math.max(1, (comboQuantities[comboId] || 1) + delta);
+      const qtyEl = document.getElementById(`qty-${comboId}`);
+      if (qtyEl) qtyEl.innerText = comboQuantities[comboId];
+
+      const combo = COMBOS.find(c => c.id === comboId);
+      if (combo) {
+        const priceEl = document.getElementById(`price-${comboId}`);
+        if (priceEl) {
+          const liveTotal = (combo.price * comboQuantities[comboId]).toFixed(2);
+          priceEl.innerText = `S/ ${liveTotal}`;
+        }
+      }
+    }
+
+    function toggleCartDrawer(isOpen) {
+      const drawer = document.getElementById('cart-drawer');
+      if (!drawer) return;
+      if (isOpen) {
+        drawer.classList.remove('translate-x-full');
+      } else {
+        drawer.classList.add('translate-x-full');
+      }
+    }
+
+    function addComboToCart(comboId) {
+      const combo = COMBOS.find(c => c.id === comboId);
+      if (!combo) return;
+      const qty = comboQuantities[comboId] || 1;
+      const totalPrice = combo.price * qty;
+
+      const cartItem = {
+        cartId: 'combo_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+        type: 'combo',
+        comboId: combo.id,
+        name: combo.name,
+        piecesText: combo.piecesText,
+        pricePerUnit: combo.price,
+        qty: qty,
+        totalPrice: totalPrice
+      };
+
+      cart.push(cartItem);
+      updateCartUI();
+      toggleCartDrawer(true);
+      showToast(`${qty}x ${combo.name} agregado al pedido.`);
+    }
+
+    function removeFromCart(cartId) {
+      cart = cart.filter(item => item.cartId !== cartId);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const container = document.getElementById('cart-items-container');
+      const badge = document.getElementById('cart-badge-count');
+      const summaryCount = document.getElementById('cart-items-count-summary');
+      const grandTotalEl = document.getElementById('cart-grand-total');
+
+      let totalUnits = 0;
+      let grandTotal = 0;
+
+      if (!container) return;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-16 text-brandCreamMuted space-y-3">
+            <div class="w-12 h-12 mx-auto border border-brandBorder/80 rounded-full flex items-center justify-center text-brandCreamMuted/40">
+              <svg class="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="1.5">
+                <ellipse cx="12" cy="12" rx="9" ry="6" />
+                <ellipse cx="12" cy="12" rx="4" ry="2.5" />
+              </svg>
+            </div>
+            <p class="text-sm">Tu canasta está vacía por ahora.</p>
+            <a href="#menu" onclick="toggleCartDrawer(false)" class="inline-block text-xs uppercase tracking-wider text-brandRed font-semibold hover:underline">
+              Ver Sabores Klon →
+            </a>
+          </div>
+        `;
+        if (badge) badge.innerText = '0';
+        if (summaryCount) summaryCount.innerText = '0 items';
+        if (grandTotalEl) grandTotalEl.innerText = 'S/ 0.00';
+        return;
+      }
+
+      container.innerHTML = '';
+
+      cart.forEach(item => {
+        grandTotal += item.totalPrice;
+        let units = 1;
+        if (item.type === 'product') units = item.boxes;
+        else if (item.type === 'combo') units = item.qty;
+        totalUnits += units;
+
+        const row = document.createElement('div');
+        row.className = 'pt-4 first:pt-0 space-y-2';
+
+        let detailsHtml = '';
+        if (item.type === 'product') {
+          detailsHtml = `
+            <div class="text-[11px] text-brandCreamMuted/80 space-y-0.5">
+              <div><span class="text-brandCream">Salsa:</span> ${item.includedSauce}</div>
+              ${item.toppings && item.toppings.length > 0 ? `<div><span class="text-brandCream">Toppings:</span> ${item.toppings.join(', ')}</div>` : ''}
+              ${item.extraSauces && item.extraSauces.length > 0 ? `<div><span class="text-brandCream">Salseras extra:</span> ${item.extraSauces.join(', ')}</div>` : ''}
+            </div>
+          `;
+        } else if (item.type === 'custom_box') {
+          const piecesText = item.pieces.map(p => `${p.count}x ${p.name.split('-')[0]}`).join(', ');
+          detailsHtml = `
+            <div class="text-[11px] text-brandCreamMuted/80 space-y-0.5">
+              <div><span class="text-brandCream">Makis:</span> ${piecesText}</div>
+              <div><span class="text-brandCream">Salsa:</span> ${item.includedSauce}</div>
+              ${item.extraSauces && item.extraSauces.length > 0 ? `<div><span class="text-brandCream">Salseras extra:</span> ${item.extraSauces.join(', ')}</div>` : ''}
+            </div>
+          `;
+        } else if (item.type === 'combo') {
+          detailsHtml = `
+            <div class="text-[11px] text-brandCreamMuted/80">
+              <span>${item.piecesText}</span>
+            </div>
+          `;
+        }
+
+        row.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <h4 class="text-xs font-bold text-brandCream font-display">
+                ${item.type === 'product' ? `${item.boxes}x Caja de ${item.name}` : (item.type === 'combo' ? `${item.qty}x ${item.name}` : item.name)}
+              </h4>
+              ${detailsHtml}
+            </div>
+            <div class="flex flex-col items-end gap-1.5 flex-shrink-0">
+              <span class="text-xs font-mono font-bold text-brandRed">S/ ${item.totalPrice.toFixed(2)}</span>
+              <button type="button" onclick="removeFromCart('${item.cartId}')" class="text-[11px] text-brandCreamMuted/60 hover:text-brandRed transition-colors" title="Eliminar item">
+                ✕ Quitar
+              </button>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(row);
+      });
+
+      if (badge) badge.innerText = totalUnits.toString();
+      if (summaryCount) summaryCount.innerText = `${totalUnits} item${totalUnits === 1 ? '' : 's'}`;
+      if (grandTotalEl) grandTotalEl.innerText = `S/ ${grandTotal.toFixed(2)}`;
+    }
+
+    function sendOrderViaWhatsApp() {
+      if (cart.length === 0) {
+        showToast('Tu carrito está vacío.');
+        return;
+      }
+
+      const name = document.getElementById('cust-name').value.trim() || 'Cliente klon';
+      const address = document.getElementById('cust-address').value.trim() || 'Coordinar por WhatsApp';
+
+      let total = 0;
+      let text = `*NUEVO PEDIDO EN KLON.PE*\n`;
+      text += `_Son makis.... o no?_\n\n`;
+      text += `*Cliente:* ${name}\n`;
+      text += `*Dirección/Entrega:* ${address}\n\n`;
+      text += `*DETALLE DE LA ORDEN:*\n`;
+      text += `--------------------------\n`;
+
+      cart.forEach((item, index) => {
+        total += item.totalPrice;
+        if (item.type === 'product') {
+          text += `*${index + 1}. ${item.boxes}x Caja de ${item.name}*\n`;
+          text += `   • Salsa incluida: ${item.includedSauce}\n`;
+          if (item.toppings && item.toppings.length > 0) {
+            text += `   • Toppings: ${item.toppings.join(', ')}\n`;
+          }
+          if (item.extraSauces.length > 0) {
+            text += `   • Salseras extras (${item.extraSauces.length}): ${item.extraSauces.join(', ')}\n`;
+          }
+          text += `   • Subtotal: S/ ${item.totalPrice.toFixed(2)}\n\n`;
+        } else if (item.type === 'custom_box') {
+          const piecesBreakdown = item.pieces.map(p => `${p.count}x ${p.name}`).join(', ');
+          text += `*${index + 1}. 1x ${item.name}*\n`;
+          text += `   • Makis (6): ${piecesBreakdown}\n`;
+          text += `   • Salsa incluida: ${item.includedSauce}\n`;
+          if (item.extraSauces.length > 0) {
+            text += `   • Salseras extras (${item.extraSauces.length}): ${item.extraSauces.join(', ')}\n`;
+          }
+          text += `   • Subtotal: S/ ${item.totalPrice.toFixed(2)}\n\n`;
+        } else {
+          text += `*${index + 1}. ${item.qty}x ${item.name}* (${item.piecesText})\n`;
+          text += `   • Subtotal: S/ ${item.totalPrice.toFixed(2)}\n\n`;
+        }
+      });
+
+      text += `--------------------------\n`;
+      text += `*TOTAL A PAGAR: S/ ${total.toFixed(2)}*\n\n`;
+      text += `Hola klon! Deseo confirmar este pedido para coordinar el pago (Yape/Plin/Transferencia) y envío. Muchas gracias!`;
+
+      const phone = "51987654321"; 
+      const encodedMessage = encodeURIComponent(text);
+      const url = `https://wa.me/${phone}?text=${encodedMessage}`;
+
+      window.open(url, '_blank');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.innerText = msg;
+
+      toast.classList.remove('opacity-0', 'translate-y-20', 'pointer-events-none');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-20', 'pointer-events-none');
+      }, 3200);
+    }
+
+    // Attach cart drawer toggle listeners
+    document.getElementById('cart-toggle-btn').addEventListener('click', () => {
+      toggleCartDrawer(true);
+    });
+
+    // Close modals on backdrop click
+    document.getElementById('product-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'product-modal') {
+        closeProductModal();
+      }
+    });
+
+    document.getElementById('box-builder-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'box-builder-modal') {
+        closeBoxBuilderModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeProductModal();
+        closeBoxBuilderModal();
+        toggleCartDrawer(false);
+      }
+    });
+
+    // Initial boot
+    window.addEventListener('DOMContentLoaded', () => {
+      renderProducts();
+      renderCombos();
+      updateCartUI();
+    });
+  </script>
+</body>
+</html>
