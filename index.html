@@ -751,30 +751,47 @@
             <span id="modal-base-price" class="text-base font-bold text-brandRed"></span>
           </div>
 
-          <!-- Optional Toppings (Only for applicable products) -->
-          <div id="modal-toppings-wrapper" class="space-y-2 pt-2 border-t border-brandBorder/60 hidden">
-            <div class="flex items-center justify-between">
-              <label class="text-xs uppercase font-bold tracking-wider text-brandCream flex items-center gap-1.5">
-                <span>Toppings artesanales:</span>
-                <span class="text-brandRed text-[10px] font-mono">(+S/ 2 c/u)</span>
-              </label>
-              <span id="modal-toppings-count" class="text-[11px] text-brandCreamMuted">0 seleccionados</span>
+          <!-- Optional Toppings (Line-Specific: Fruit vs Pastry) -->
+          <div id="modal-toppings-wrapper" class="space-y-2 pt-2 border-t border-brandBorder/60">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex flex-col">
+                <span class="text-xs uppercase font-bold tracking-wider text-brandCream">Toppings artesanales:</span>
+                <span class="text-[10px] text-brandRed font-mono font-medium">(+S/ 2 c/u)</span>
+              </div>
+              <span id="modal-toppings-count" class="text-xs text-brandCreamMuted font-mono whitespace-nowrap pt-0.5">0 seleccionados</span>
             </div>
             <div id="modal-toppings-container" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               <!-- Dynamically populated checkboxes for toppings -->
             </div>
           </div>
 
-          <!-- Included Sauce (1 Included) -->
-          <div class="space-y-2 pt-1 border-t border-brandBorder/60">
-            <div class="flex items-center justify-between">
-              <label class="text-xs uppercase font-bold tracking-wider text-brandCream flex items-center gap-1.5">
-                <span>1 Salsa incluida:</span>
-                <span class="text-brandRed text-[10px]">(Gratis)</span>
-              </label>
+          <!-- Included Sauce (Free when ordering 6+ pieces) -->
+          <div class="space-y-2 pt-2 border-t border-brandBorder/60">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex flex-col">
+                <span class="text-xs uppercase font-bold tracking-wider text-brandCream">1 Salsa incluida:</span>
+                <span id="sauce-qualification-subtitle" class="text-[10px] text-brandRed font-medium">Gratis a partir de 6 piezas</span>
+              </div>
+              <span id="sauce-status-badge" class="text-[10px] px-2 py-0.5 rounded font-mono font-bold bg-brandDark border border-brandBorder text-brandCreamMuted">
+                Faltan 2 piezas
+              </span>
+            </div>
+
+            <!-- Sauce unlocked notice banner -->
+            <div id="sauce-unlocked-banner" class="hidden text-[11px] p-2 bg-brandRed/10 border border-brandRed/40 text-brandCream rounded-lg flex items-center gap-2">
+              <span class="text-brandRed font-bold">✓</span>
+              <span>¡Calificas para 1 salsa artesanal gratis por tu orden de 6+ piezas!</span>
+            </div>
+
+            <!-- Sauce locked notice banner -->
+            <div id="sauce-locked-banner" class="text-[11px] p-2 bg-brandDark border border-brandBorder text-brandCreamMuted rounded-lg flex items-center justify-between">
+              <span id="sauce-locked-msg">Mínimo 4 piezas. Agrega 2 más para incluir salsa gratis.</span>
+              <button type="button" onclick="setModalPieces(6)" class="text-[10px] text-brandRed font-bold hover:underline ml-2 flex-shrink-0">
+                Subir a 6 →
+              </button>
             </div>
             
-            <div class="grid grid-cols-2 gap-2 text-xs" id="default-sauce-radios">
+            <div class="grid grid-cols-2 gap-2 text-xs opacity-50 pointer-events-none transition-opacity" id="default-sauce-radios">
               <!-- Radios: Chocolate, Pistachio Cream, Dulce de Leche, Fruit Jam -->
               <label class="sauce-label flex items-center gap-2 p-2 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors">
                 <input type="radio" name="included-sauce" value="Chocolate" class="accent-brandRed" />
@@ -797,28 +814,34 @@
 
           <!-- Extra Sauces Section (+S/3 each) -->
           <div class="space-y-2 pt-2 border-t border-brandBorder/60">
-            <div class="flex items-center justify-between">
-              <span class="text-xs uppercase font-bold tracking-wider text-brandCream">Salsas adicionales (+S/ 3 c/u):</span>
-              <span id="extra-sauces-count" class="text-xs font-mono text-brandRed font-bold">0 extras</span>
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex flex-col">
+                <span class="text-xs uppercase font-bold tracking-wider text-brandCream">Salsas adicionales:</span>
+                <span class="text-[10px] text-brandRed font-mono font-medium">(+S/ 3 c/u)</span>
+              </div>
+              <span id="extra-sauces-count" class="text-xs font-mono text-brandRed font-bold whitespace-nowrap pt-0.5">0 extras (+S/ 0.00)</span>
             </div>
 
             <!-- Extra Sauces List -->
             <div id="extra-sauces-list" class="space-y-2 max-h-32 overflow-y-auto pr-1">
-              <!-- Dynamically added extra sauce pots -->
+              <!-- Dynamically added extra sauces -->
             </div>
 
             <button type="button" onclick="addExtraSauceInput()" class="w-full py-2 bg-brandDark hover:bg-brandBorder border border-dashed border-brandBorder hover:border-brandRed text-xs text-brandCreamMuted hover:text-white rounded-lg flex items-center justify-center gap-2 transition-colors">
-              <span class="text-brandRed font-bold text-sm">+</span> Añadir otra salsera (+S/ 3)
+              <span class="text-brandRed font-bold text-sm">+</span> Añadir otra salsa (+S/ 3)
             </button>
           </div>
 
-          <!-- Box Quantity Selector -->
+          <!-- Piece-Based Quantity Selector (Min: 4 pieces) -->
           <div class="pt-2 border-t border-brandBorder/60 flex items-center justify-between">
-            <span class="text-xs uppercase font-bold tracking-wider text-brandCream">Cajas de 6 unid:</span>
+            <div class="flex flex-col">
+              <span class="text-xs uppercase font-bold tracking-wider text-brandCream">Cantidad de piezas:</span>
+              <span class="text-[10px] text-brandCreamMuted font-light">Mínimo 4 piezas por pedido</span>
+            </div>
             <div class="flex items-center gap-3 bg-brandDark p-1 rounded-xl border border-brandBorder">
-              <button onclick="changeModalBoxQty(-1)" class="w-7 h-7 rounded-lg bg-brandCard hover:bg-brandRed text-brandCream hover:text-white flex items-center justify-center font-bold text-sm transition-colors">-</button>
-              <span id="modal-box-qty" class="w-6 text-center font-bold text-sm">1</span>
-              <button onclick="changeModalBoxQty(1)" class="w-7 h-7 rounded-lg bg-brandCard hover:bg-brandRed text-brandCream hover:text-white flex items-center justify-center font-bold text-sm transition-colors">+</button>
+              <button type="button" onclick="changeModalPieces(-1)" class="w-7 h-7 rounded-lg bg-brandCard hover:bg-brandRed text-brandCream hover:text-white flex items-center justify-center font-bold text-sm transition-colors">-</button>
+              <span id="modal-pieces-qty" class="w-7 text-center font-bold text-sm font-mono text-brandCream">4</span>
+              <button type="button" onclick="changeModalPieces(1)" class="w-7 h-7 rounded-lg bg-brandCard hover:bg-brandRed text-brandCream hover:text-white flex items-center justify-center font-bold text-sm transition-colors">+</button>
             </div>
           </div>
 
@@ -1007,14 +1030,14 @@
         <!-- Extra Sauces (+S/3 each) -->
         <div class="space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-xs uppercase font-bold tracking-wider text-brandCream">Salseras extras (+S/ 3 c/u):</span>
+            <span class="text-xs uppercase font-bold tracking-wider text-brandCream">Salsas extras (+S/ 3 c/u):</span>
             <span id="builder-extras-count" class="text-xs font-mono text-brandRed font-bold">0 extras</span>
           </div>
           <div id="builder-extra-sauces-list" class="space-y-1.5 max-h-24 overflow-y-auto pr-1">
             <!-- Dynamic extra sauces for custom box -->
           </div>
           <button type="button" onclick="addBuilderExtraSauce()" class="w-full py-2 bg-brandDark hover:bg-brandBorder border border-dashed border-brandBorder hover:border-brandRed text-xs text-brandCreamMuted hover:text-white rounded-lg flex items-center justify-center gap-1.5 transition-colors">
-            <span class="text-brandRed font-bold text-sm">+</span> Añadir otra salsera (+S/ 3)
+            <span class="text-brandRed font-bold text-sm">+</span> Añadir otra salsa (+S/ 3)
           </button>
         </div>
 
@@ -1036,6 +1059,23 @@
   </div>
 
   <script>
+    /* Specific Curated Toppings Defined per Product Line (S/2 each) */
+    const FRUIT_TOPPINGS = [
+      'coco laminado tostado',
+      'pistacho picado',
+      'granola artesanal',
+      'polvo de fruta liofilizada',
+      'chía'
+    ];
+
+    const PASTRY_TOPPINGS = [
+      'nuez picada',
+      'galleta triturada',
+      'cacao en polvo',
+      'canela',
+      'extra de ganache de chocolate'
+    ];
+
     /* Product Catalog Data (14 items: 7 fruit line + 7 pastry line) with clearly named local image slots */
     const PRODUCTS = [
       // Fruit Line (7 items)
@@ -1047,8 +1087,7 @@
         defaultSauce: 'Chocolate',
         desc: 'Crepe dulce artesanal con láminas de fresa fresca de Huaura, plátano de seda caramelizado y centro fundente de chocolate.',
         image: 'fresa-platano-choco.png',
-        imageScale: 'scale-100', // Reference baseline zoom
-        availableToppings: ['Nibs de cacao orgánico', 'Pecanas tostadas']
+        imageScale: 'scale-100'
       },
       {
         id: 'f2',
@@ -1058,8 +1097,7 @@
         defaultSauce: 'Pistachio Cream',
         desc: 'Equilibrio cítrico de kiwi verde laminado con una base untuosa de crema de pistacho tostado de Bronte.',
         image: 'kiwi-pistacho.png',
-        imageScale: 'scale-[0.96]', // Normalizes slightly larger diameter
-        availableToppings: ['Pistacho tostado picado', 'Té matcha en polvo']
+        imageScale: 'scale-[0.96]'
       },
       {
         id: 'f3',
@@ -1069,8 +1107,7 @@
         defaultSauce: 'Fruit Jam',
         desc: 'Maki refrescante de mango de Casma, trozos de piña golden y duraznos seleccionados sobre crema ligera.',
         image: 'mango-pina-durazno.png',
-        imageScale: 'scale-100', // Aligns with baseline
-        availableToppings: ['Coco laminado tostado']
+        imageScale: 'scale-100'
       },
       {
         id: 'f4',
@@ -1080,8 +1117,7 @@
         defaultSauce: 'Fruit Jam',
         desc: 'Explosión antioxidante de frambuesas, moras y arándanos silvestres sobre crema chantilly ligera.',
         image: 'berries-mix.png',
-        imageScale: 'scale-[1.03]', // Optical balance with darker berries
-        availableToppings: ['Polvo de frambuesa liofilizada', 'Crumble crocante']
+        imageScale: 'scale-[1.03]'
       },
       {
         id: 'f5',
@@ -1091,9 +1127,8 @@
         defaultSauce: 'Dulce de Leche',
         desc: 'Manzanas asadas al dente con canela de Ceilán, masa de crepe especiada y caramelo tibio.',
         image: 'manzana-canela.png',
-        altImage: 'manzana-canela.jpg', // Supports both .png and .jpg uploads seamlessly
-        imageScale: 'scale-[1.10]', // Calibrates slightly farther shot to match the others
-        availableToppings: ['Pecanas picadas tostadas', 'Galleta de canela triturada']
+        altImage: 'manzana-canela.jpg',
+        imageScale: 'scale-[1.10]'
       },
       {
         id: 'f6',
@@ -1103,8 +1138,7 @@
         defaultSauce: 'Fruit Jam',
         desc: 'Delicada combinación de higos maduros y tuna andina envuelta en crepe artesanal, acompañada de reducción silvestre de camu camu.',
         image: 'higo-tuna-camu-camu.png',
-        imageScale: 'scale-100', // Aligns with baseline
-        availableToppings: ['Semillas tostadas', 'Crumble crocante']
+        imageScale: 'scale-100'
       },
       {
         id: 'f7',
@@ -1114,8 +1148,7 @@
         defaultSauce: 'Chocolate',
         desc: 'Corazón de Nutella cremosa envuelto en masa de cacao y coronado con trozos de fresas y grosellas.',
         image: 'frutos-rojos-nutella.png',
-        imageScale: 'scale-[1.02]', // Optical balance
-        availableToppings: ['Avellanas tostadas picadas']
+        imageScale: 'scale-[1.02]'
       },
 
       // Pastry Line (7 items)
@@ -1127,8 +1160,7 @@
         defaultSauce: 'Fruit Jam',
         desc: 'Bizcochuelo rojo aterciopelado enrollado con frosting de cream cheese de vainilla y polvo de frambuesa.',
         image: 'images/products/red-velvet-roll.jpg',
-        imageScale: 'scale-100',
-        availableToppings: ['Polvo de frambuesa liofilizada', 'Virutas de chocolate blanco']
+        imageScale: 'scale-100'
       },
       {
         id: 'p2',
@@ -1138,8 +1170,7 @@
         defaultSauce: 'Dulce de Leche',
         desc: 'Emblema latino: bizcocho genovés embebido en infusión de tres leches y canela, envuelto sin perder humedad.',
         image: 'images/products/tres-leches-roll.jpg',
-        imageScale: 'scale-100',
-        availableToppings: ['Canela de Ceilán extra']
+        imageScale: 'scale-100'
       },
       {
         id: 'p3',
@@ -1149,8 +1180,7 @@
         defaultSauce: 'Chocolate',
         desc: 'Trilogía de chocolate: crepe de cacao puro 70%, ganache untuosa de trufa y crujiente de nibs orgánicos.',
         image: 'images/products/chocolate-roll.jpg',
-        imageScale: 'scale-100',
-        availableToppings: ['Nibs de cacao orgánico', 'Avellanas picadas']
+        imageScale: 'scale-100'
       },
       {
         id: 'p4',
@@ -1160,8 +1190,7 @@
         defaultSauce: 'Fruit Jam',
         desc: 'Clásico New York Cheesecake enrollado con crumble crocante de galleta graham y coulis de frutos rojos.',
         image: 'images/products/cheesecake-roll.jpg',
-        imageScale: 'scale-100',
-        availableToppings: ['Crumble de galleta Graham', 'Polvo de frutos rojos']
+        imageScale: 'scale-100'
       },
       {
         id: 'p5',
@@ -1171,8 +1200,7 @@
         defaultSauce: 'Chocolate',
         desc: 'Capas de soletilla embebidas en espresso peruano, crema de mascarpone aireada y velo de cacao amargo.',
         image: 'images/products/tiramisu-roll.jpg',
-        imageScale: 'scale-100',
-        availableToppings: ['Cacao amargo puro extra', 'Virutas de chocolate bitter']
+        imageScale: 'scale-100'
       },
       {
         id: 'p6',
@@ -1182,8 +1210,7 @@
         defaultSauce: 'Dulce de Leche',
         desc: 'Roll de zanahoria fresca, nueces pecanas tostadas y suave relleno de crema de queso y especias dulces.',
         image: 'images/products/carrot-cake-roll.jpg',
-        imageScale: 'scale-100',
-        availableToppings: ['Nueces pecanas tostadas', 'Crumble de especias']
+        imageScale: 'scale-100'
       },
       {
         id: 'p7',
@@ -1193,8 +1220,7 @@
         defaultSauce: 'Dulce de Leche',
         desc: 'Curd de limón sutilmente ácido con un acabado exterior de merengue suizo flameado con soplete.',
         image: 'images/products/lemon-meringue-roll.jpg',
-        imageScale: 'scale-100',
-        availableToppings: ['Ralladura de lima confitada']
+        imageScale: 'scale-100'
       }
     ];
 
@@ -1204,7 +1230,7 @@
         id: 'combo-1',
         name: 'Klon Classic Combo',
         piecesText: '7 piezas frutales',
-        price: 20, // Avg fruit piece ~S/3.05 x 7 = S/21.35 -> S/20 bundle price (~6% discount)
+        price: 20,
         desc: 'Una degustación completa de cada creación frutal de nuestra carta.',
         image: 'images/combos/klon-classic-combo.jpg'
       },
@@ -1212,7 +1238,7 @@
         id: 'combo-2',
         name: 'Klon Pastry Combo',
         piecesText: '7 piezas pasteleras',
-        price: 22, // Avg pastry piece ~S/3.38 x 7 = S/23.66 -> S/22 bundle price (~7% discount)
+        price: 22,
         desc: 'Toda la línea de pastelería artesanal transformada en rollos de postre.',
         image: 'images/combos/klon-pastry-combo.jpg'
       },
@@ -1220,7 +1246,7 @@
         id: 'combo-3',
         name: 'Klon Mixed Combo',
         piecesText: '14 piezas (7+7)',
-        price: 40, // (7 fruit + 7 pastry) = S/45.00 -> S/40 bundle price (~11% discount)
+        price: 40,
         desc: 'La experiencia total: 1 maki de cada sabor de la carta para compartir.',
         image: 'images/combos/klon-mixed-combo.jpg'
       },
@@ -1228,7 +1254,7 @@
         id: 'combo-4',
         name: 'Klon Solo Combo',
         piecesText: '4 piezas de elección',
-        price: 12, // 4 pieces choice avg ~S/3.21 x 4 = S/12.84 -> S/12 bundle price (~7% discount)
+        price: 12,
         desc: 'Tu selección personal en caja individual compacta con palillos.',
         image: 'images/combos/klon-solo-combo.jpg'
       }
@@ -1237,9 +1263,9 @@
     let cart = [];
     let currentFilter = 'all';
 
-    // Current product modal working state
+    // Current product modal working state (Piece-based, minimum 4)
     let activeProduct = null;
-    let modalBoxQty = 1;
+    let modalPieces = 4;
     let modalExtraSauces = []; // Array of flavor strings
     let modalSelectedToppings = [];
     let builderSelections = {};
@@ -1444,13 +1470,15 @@
       activeProduct = PRODUCTS.find(p => p.id === productId);
       if (!activeProduct) return;
 
-      modalBoxQty = 1;
+      modalPieces = 4; // Reset to minimum 4 pieces
       modalExtraSauces = [];
       modalSelectedToppings = [];
 
       document.getElementById('modal-title').innerText = activeProduct.name;
       document.getElementById('modal-desc').innerText = activeProduct.desc;
-      document.getElementById('modal-base-price').innerText = `S/ ${activeProduct.price.toFixed(2)}`;
+      
+      const piecePrice = activeProduct.price / 6;
+      document.getElementById('modal-base-price').innerText = `S/ ${activeProduct.price.toFixed(2)} (S/ ${piecePrice.toFixed(2)} c/u)`;
       
       const modalImg = document.getElementById('modal-img');
       modalImg.className = `w-full h-full object-cover ${activeProduct.imageScale || 'scale-100'} transition-transform duration-300`;
@@ -1461,6 +1489,195 @@
       } else {
         modalImg.removeAttribute('data-alt-src');
       }
+      modalImg.dataset.triedAlt = '';
+      modalImg.dataset.triedExt = '';
+      modalImg.src = activeProduct.image;
+      modalImg.onerror = function() {
+        handleImageFallback(this);
+      };
+
+      document.getElementById('modal-line-tag').innerText = activeProduct.line === 'fruit' ? 'Línea Frutal' : 'Línea Pastelera';
+      document.getElementById('modal-pieces-qty').innerText = modalPieces;
+
+      // Render Line-Specific Toppings
+      const toppingsContainer = document.getElementById('modal-toppings-container');
+      const toppingsCount = document.getElementById('modal-toppings-count');
+      toppingsCount.innerText = '0 seleccionados';
+      toppingsContainer.innerHTML = '';
+
+      const lineToppings = activeProduct.line === 'fruit' ? FRUIT_TOPPINGS : PASTRY_TOPPINGS;
+
+      lineToppings.forEach(toppingName => {
+        const label = document.createElement('label');
+        label.className = 'flex items-center justify-between p-2.5 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors';
+        label.innerHTML = `
+          <div class="flex items-center gap-2">
+            <input type="checkbox" value="${toppingName}" onchange="toggleModalTopping('${toppingName}', this.checked)" class="accent-brandRed rounded" />
+            <span class="text-xs text-brandCream capitalize">${toppingName}</span>
+          </div>
+          <span class="text-[10px] font-mono text-brandRed font-bold">+S/ 2</span>
+        `;
+        toppingsContainer.appendChild(label);
+      });
+
+      // Pre-select included default sauce
+      const sauceRadios = document.querySelectorAll('input[name="included-sauce"]');
+      sauceRadios.forEach(radio => {
+        radio.checked = (radio.value === activeProduct.defaultSauce);
+      });
+
+      renderExtraSaucesList();
+      updateModalSauceEligibility();
+      recalculateModalPrice();
+
+      // Show modal
+      const modal = document.getElementById('product-modal');
+      const container = document.getElementById('modal-container');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      container.classList.remove('scale-95');
+      container.classList.add('scale-100');
+    }
+
+    function toggleModalTopping(toppingName, isChecked) {
+      if (isChecked) {
+        modalSelectedToppings.push(toppingName);
+      } else {
+        modalSelectedToppings = modalSelectedToppings.filter(t => t !== toppingName);
+      }
+      document.getElementById('modal-toppings-count').innerText = `${modalSelectedToppings.length} seleccionado${modalSelectedToppings.length === 1 ? '' : 's'}`;
+      recalculateModalPrice();
+    }
+
+    function closeProductModal() {
+      const modal = document.getElementById('product-modal');
+      const container = document.getElementById('modal-container');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      container.classList.add('scale-95');
+      container.classList.remove('scale-100');
+    }
+
+    function changeModalPieces(delta) {
+      modalPieces = Math.max(4, modalPieces + delta); // Minimum 4 pieces
+      document.getElementById('modal-pieces-qty').innerText = modalPieces;
+      updateModalSauceEligibility();
+      recalculateModalPrice();
+    }
+
+    function setModalPieces(count) {
+      modalPieces = Math.max(4, count);
+      document.getElementById('modal-pieces-qty').innerText = modalPieces;
+      updateModalSauceEligibility();
+      recalculateModalPrice();
+    }
+
+    function updateModalSauceEligibility() {
+      const isEligible = modalPieces >= 6;
+      const radiosContainer = document.getElementById('default-sauce-radios');
+      const unlockedBanner = document.getElementById('sauce-unlocked-banner');
+      const lockedBanner = document.getElementById('sauce-locked-banner');
+      const statusBadge = document.getElementById('sauce-status-badge');
+      const lockedMsg = document.getElementById('sauce-locked-msg');
+
+      if (isEligible) {
+        radiosContainer.classList.remove('opacity-50', 'pointer-events-none');
+        unlockedBanner.classList.remove('hidden');
+        lockedBanner.classList.add('hidden');
+        statusBadge.innerText = '1 Gratis incluida';
+        statusBadge.className = 'text-[10px] px-2 py-0.5 rounded font-mono font-bold bg-green-950/60 border border-green-700/60 text-green-400';
+      } else {
+        const remaining = 6 - modalPieces;
+        radiosContainer.classList.add('opacity-50', 'pointer-events-none');
+        unlockedBanner.classList.add('hidden');
+        lockedBanner.classList.remove('hidden');
+        lockedMsg.innerText = `Falta${remaining === 1 ? '' : 'n'} ${remaining} pieza${remaining === 1 ? '' : 's'} para incluir salsa gratis.`;
+        statusBadge.innerText = `Falta${remaining === 1 ? '' : 'n'} ${remaining}`;
+        statusBadge.className = 'text-[10px] px-2 py-0.5 rounded font-mono font-bold bg-brandDark border border-brandBorder text-brandRed';
+      }
+    }
+
+    function addExtraSauceInput() {
+      modalExtraSauces.push('Chocolate');
+      renderExtraSaucesList();
+      recalculateModalPrice();
+    }
+
+    function removeExtraSauceInput(index) {
+      modalExtraSauces.splice(index, 1);
+      renderExtraSaucesList();
+      recalculateModalPrice();
+    }
+
+    function updateExtraSauceFlavor(index, newFlavor) {
+      modalExtraSauces[index] = newFlavor;
+    }
+
+    function renderExtraSaucesList() {
+      const container = document.getElementById('extra-sauces-list');
+      const countLabel = document.getElementById('extra-sauces-count');
+      const extrasCost = modalExtraSauces.length * 3;
+      countLabel.innerText = `${modalExtraSauces.length} extra${modalExtraSauces.length === 1 ? '' : 's'} (+S/ ${extrasCost.toFixed(2)})`;
+
+      container.innerHTML = '';
+      modalExtraSauces.forEach((flavor, idx) => {
+        const row = document.createElement('div');
+        row.className = 'flex items-center gap-2 bg-brandDark p-2 rounded-lg border border-brandBorder';
+        row.innerHTML = `
+          <span class="text-xs text-brandRed font-mono font-bold">#${idx + 1}</span>
+          <select onchange="updateExtraSauceFlavor(${idx}, this.value)" class="flex-1 bg-brandCard border border-brandBorder text-xs text-brandCream rounded p-1 focus:outline-none">
+            <option value="Chocolate" ${flavor === 'Chocolate' ? 'selected' : ''}>Chocolate (+S/3)</option>
+            <option value="Pistachio Cream" ${flavor === 'Pistachio Cream' ? 'selected' : ''}>Pistachio Cream (+S/3)</option>
+            <option value="Dulce de Leche" ${flavor === 'Dulce de Leche' ? 'selected' : ''}>Dulce de Leche (+S/3)</option>
+            <option value="Fruit Jam" ${flavor === 'Fruit Jam' ? 'selected' : ''}>Fruit Jam (+S/3)</option>
+          </select>
+          <button type="button" onclick="removeExtraSauceInput(${idx})" class="text-xs text-brandCreamMuted hover:text-brandRed px-2 py-1">✕</button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function recalculateModalPrice() {
+      if (!activeProduct) return;
+      // Formula: (Price per piece × number of pieces) + (S/2 × number of toppings) + (S/3 × extra sauces)
+      const piecePrice = activeProduct.price / 6;
+      const basePiecesTotal = piecePrice * modalPieces;
+      const toppingsTotal = modalSelectedToppings.length * 2;
+      const extraSaucesTotal = modalExtraSauces.length * 3;
+      const grandTotal = basePiecesTotal + toppingsTotal + extraSaucesTotal;
+
+      document.getElementById('modal-calculated-total').innerText = `S/ ${grandTotal.toFixed(2)}`;
+    }
+
+    function commitModalAddToCart() {
+      if (!activeProduct) return;
+
+      const qualifiesForFreeSauce = modalPieces >= 6;
+      const checkedSauce = document.querySelector('input[name="included-sauce"]:checked');
+      const chosenSauce = qualifiesForFreeSauce ? (checkedSauce ? checkedSauce.value : activeProduct.defaultSauce) : null;
+
+      const piecePrice = activeProduct.price / 6;
+      const basePiecesTotal = piecePrice * modalPieces;
+      const toppingsTotal = modalSelectedToppings.length * 2;
+      const extraSaucesTotal = modalExtraSauces.length * 3;
+      const itemTotal = basePiecesTotal + toppingsTotal + extraSaucesTotal;
+
+      const cartItem = {
+        cartId: 'item_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+        type: 'product',
+        productId: activeProduct.id,
+        name: activeProduct.name,
+        piecePrice: piecePrice,
+        pieces: modalPieces,
+        includedSauce: chosenSauce,
+        extraSauces: [...modalExtraSauces],
+        toppings: [...modalSelectedToppings],
+        totalPrice: itemTotal
+      };
+
+      cart.push(cartItem);
+      updateCartUI();
+      closeProductModal();
+      showToast(`${modalPieces} piezas de ${activeProduct.name} añadidas.`);
+    }
       modalImg.dataset.triedAlt = '';
       modalImg.dataset.triedExt = '';
       modalImg.src = activeProduct.image;
