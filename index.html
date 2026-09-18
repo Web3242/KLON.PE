@@ -233,72 +233,66 @@
             <!-- Bento Sushi Roll Display Grid (6 Mock Makis Inside) -->
             <div class="grid grid-cols-3 gap-3 p-3 bg-brandDark/80 rounded-xl border border-brandBorder/70">
               
-              <!-- Maki Piece 1: Strawberry Roll -->
-              <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Fresa">
-                <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors">
-                  <!-- Product Image: Replace 'images/hero/hero-fresa.jpg' with your photo -->
-                  <img src="images/hero/hero-fresa.jpg" alt="Fresa" class="w-full h-full object-cover rounded-full" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
-                  <div class="hidden w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
-                  </div>
-                </div>
-                <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors">Fresa</span>
-              </div>
-
-              <!-- Maki Piece 2: Kiwi Roll -->
+              <!-- Maki Piece 1: Kiwi (Front-facing transparent PNG) -->
               <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Kiwi">
-                <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors">
-                  <!-- Product Image: Replace 'images/hero/hero-kiwi.jpg' with your photo -->
-                  <img src="images/hero/hero-kiwi.jpg" alt="Kiwi" class="w-full h-full object-cover rounded-full" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
-                  <div class="hidden w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
+                <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors p-1">
+                  <!-- Product Image: kiwi-sin-fondo.png -->
+                  <img src="kiwi-sin-fondo.png" data-alt-src="kiwi-sin-fondo.jpg" alt="Kiwi" data-label="Kiwi" class="w-full h-full object-contain filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-110 z-10" onerror="handleImageFallback(this);" />
+                  <div class="hero-placeholder hidden absolute inset-0 w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
                   </div>
                 </div>
-                <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors">Kiwi</span>
+                <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors whitespace-nowrap">Kiwi</span>
               </div>
 
-              <!-- Maki Piece 3: Mango Roll -->
-              <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Mango">
-                <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors">
-                  <!-- Product Image: Replace 'images/hero/hero-mango.jpg' with your photo -->
-                  <img src="images/hero/hero-mango.jpg" alt="Mango" class="w-full h-full object-cover rounded-full" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
-                  <div class="hidden w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
+              <!-- Maki Piece 2: Manzana-Canela (Front-facing transparent PNG) -->
+              <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Manzana">
+                <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors p-1">
+                  <!-- Product Image: manzana-canela-sin-fondo.png -->
+                  <img src="manzana-canela-sin-fondo.png" data-alt-src="manzana-canela-sin-fondo.jpg" alt="Manzana" data-label="Manzana" class="w-full h-full object-contain filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-110 z-10" onerror="handleImageFallback(this);" />
+                  <div class="hero-placeholder hidden absolute inset-0 w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
                   </div>
                 </div>
-                <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors">Mango</span>
+                <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors whitespace-nowrap">Manzana</span>
               </div>
 
-              <!-- Maki Piece 4: Red Velvet -->
+              <!-- Maki Piece 3: Frutos Rojos (Front-facing transparent PNG) -->
+              <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Frutos Rojos">
+                <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors p-1">
+                  <!-- Product Image: frutos-rojos-sin-fondo.png -->
+                  <img src="frutos-rojos-sin-fondo.png" data-alt-src="frutos-rojos-sin-fondo.jpg" alt="Frutos Rojos" data-label="Frutos Rojos" class="w-full h-full object-contain filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-110 z-10" onerror="handleImageFallback(this);" />
+                  <div class="hero-placeholder hidden absolute inset-0 w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
+                  </div>
+                </div>
+                <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors whitespace-nowrap">Frutos Rojos</span>
+              </div>
+
+              <!-- Maki Piece 4: Red Velvet (Placeholder kept for future photo) -->
               <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Velvet">
                 <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors">
-                  <!-- Product Image: Replace 'images/hero/hero-velvet.jpg' with your photo -->
-                  <img src="images/hero/hero-velvet.jpg" alt="Velvet" class="w-full h-full object-cover rounded-full" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
-                  <div class="hidden w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
+                  <div class="w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
                   </div>
                 </div>
                 <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors">Velvet</span>
               </div>
 
-              <!-- Maki Piece 5: Tiramisu / Café -->
+              <!-- Maki Piece 5: Tiramisu / Café (Placeholder kept for future photo) -->
               <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Café">
                 <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors">
-                  <!-- Product Image: Replace 'images/hero/hero-cafe.jpg' with your photo -->
-                  <img src="images/hero/hero-cafe.jpg" alt="Café" class="w-full h-full object-cover rounded-full" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
-                  <div class="hidden w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
+                  <div class="w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
                   </div>
                 </div>
                 <span class="absolute -bottom-1 text-[8px] bg-brandDark px-1.5 py-0.5 border border-brandBorder text-brandCreamMuted rounded group-hover:text-brandRed group-hover:border-brandRed/40 transition-colors">Café</span>
               </div>
 
-              <!-- Maki Piece 6: Chocolate Bitter -->
+              <!-- Maki Piece 6: Chocolate Bitter (Placeholder kept for future photo) -->
               <div class="aspect-square rounded-full border-2 border-brandBorder hover:border-brandRed/70 bg-[#161616] relative flex flex-col items-center justify-center p-1 shadow-inner transition-colors duration-200 group cursor-pointer" title="Choco">
                 <div class="w-full h-full rounded-full bg-brandCard border border-brandBorder/80 flex items-center justify-center relative overflow-hidden group-hover:border-brandRed/50 transition-colors">
-                  <!-- Product Image: Replace 'images/hero/hero-choco.jpg' with your photo -->
-                  <img src="images/hero/hero-choco.jpg" alt="Choco" class="w-full h-full object-cover rounded-full" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
-                  <div class="hidden w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
+                  <div class="w-full h-full rounded-full flex flex-col items-center justify-center bg-brandDark text-brandCreamMuted/40 group-hover:text-brandRed">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 3"/></svg>
                   </div>
                 </div>
@@ -1263,11 +1257,12 @@
     let cart = [];
     let currentFilter = 'all';
 
-    // Current product modal working state (Piece-based, minimum 4)
+    // Current product modal working state (Piece-based, minimum 6, free sauce at 12)
     let activeProduct = null;
-    let modalPieces = 4;
+    let modalPieces = 6;
     let modalExtraSauces = []; // Array of flavor strings
     let modalSelectedToppings = [];
+    let isToppingsExpanded = false;
     let builderSelections = {};
     let builderExtraSauces = [];
 
@@ -1304,6 +1299,14 @@
           img.src = img.src.replace(/\.jpg$/, '.png');
           return;
         }
+      }
+
+      // For hero preview circular items, reveal the dotted placeholder container if file is absent
+      const heroPlaceholder = img.parentElement ? img.parentElement.querySelector('.hero-placeholder') : null;
+      if (heroPlaceholder) {
+        img.classList.add('hidden');
+        heroPlaceholder.classList.remove('hidden');
+        return;
       }
 
       img.onerror = null;
@@ -1343,6 +1346,7 @@
 
         const scaleClass = product.imageScale || 'scale-100';
         const altAttr = product.altImage ? `data-alt-src="${product.altImage}"` : '';
+        const piecePrice = (product.price / 6).toFixed(2);
 
         card.innerHTML = `
           <div>
@@ -1358,7 +1362,7 @@
               </div>
               <div class="absolute bottom-3 right-3 z-10">
                 <span class="text-xs font-extrabold px-3 py-1.5 bg-brandRed text-white rounded-lg shadow-lg shadow-brandRed/30">
-                  S/ ${product.price.toFixed(2)}
+                  S/ ${piecePrice} <span class="text-[10px] font-normal opacity-90">/ pieza</span>
                 </span>
               </div>
             </div>
@@ -1377,7 +1381,7 @@
             <div class="pt-3 border-t border-brandBorder/60 flex items-center justify-between text-xs text-brandCreamMuted">
               <span class="flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-brandRed inline-block"></span>
-                Caja 6 uds.
+                Min. 6 piezas
               </span>
               <span class="text-brandRed font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
                 Personalizar →
@@ -1470,15 +1474,16 @@
       activeProduct = PRODUCTS.find(p => p.id === productId);
       if (!activeProduct) return;
 
-      modalPieces = 4; // Reset to minimum 4 pieces
+      modalPieces = 6; // Reset to minimum 6 pieces
       modalExtraSauces = [];
       modalSelectedToppings = [];
+      isToppingsExpanded = false;
 
       document.getElementById('modal-title').innerText = activeProduct.name;
       document.getElementById('modal-desc').innerText = activeProduct.desc;
       
       const piecePrice = activeProduct.price / 6;
-      document.getElementById('modal-base-price').innerText = `S/ ${activeProduct.price.toFixed(2)} (S/ ${piecePrice.toFixed(2)} c/u)`;
+      document.getElementById('modal-base-price').innerText = `S/ ${piecePrice.toFixed(2)} / pieza (Min. 6 piezas)`;
       
       const modalImg = document.getElementById('modal-img');
       modalImg.className = `w-full h-full object-cover ${activeProduct.imageScale || 'scale-100'} transition-transform duration-300`;
@@ -1499,26 +1504,38 @@
       document.getElementById('modal-line-tag').innerText = activeProduct.line === 'fruit' ? 'Línea Frutal' : 'Línea Pastelera';
       document.getElementById('modal-pieces-qty').innerText = modalPieces;
 
-      // Render Line-Specific Toppings
+      // Reset collapsible toppings state safely
       const toppingsContainer = document.getElementById('modal-toppings-container');
+      const toggleBtnText = document.getElementById('toggle-toppings-text');
+      const toggleBtnIcon = document.getElementById('toggle-toppings-icon');
+      if (toppingsContainer) {
+        toppingsContainer.classList.add('hidden');
+        toppingsContainer.classList.remove('grid');
+      }
+      if (toggleBtnText) toggleBtnText.innerText = 'Añadir topping';
+      if (toggleBtnIcon) toggleBtnIcon.innerText = '+';
+
+      // Render Line-Specific Toppings
       const toppingsCount = document.getElementById('modal-toppings-count');
-      toppingsCount.innerText = '0 seleccionados';
-      toppingsContainer.innerHTML = '';
+      if (toppingsCount) toppingsCount.innerText = '0 seleccionados';
+      if (toppingsContainer) toppingsContainer.innerHTML = '';
 
       const lineToppings = activeProduct.line === 'fruit' ? FRUIT_TOPPINGS : PASTRY_TOPPINGS;
 
-      lineToppings.forEach(toppingName => {
-        const label = document.createElement('label');
-        label.className = 'flex items-center justify-between p-2.5 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors';
-        label.innerHTML = `
-          <div class="flex items-center gap-2">
-            <input type="checkbox" value="${toppingName}" onchange="toggleModalTopping('${toppingName}', this.checked)" class="accent-brandRed rounded" />
-            <span class="text-xs text-brandCream capitalize">${toppingName}</span>
-          </div>
-          <span class="text-[10px] font-mono text-brandRed font-bold">+S/ 2</span>
-        `;
-        toppingsContainer.appendChild(label);
-      });
+      if (toppingsContainer) {
+        lineToppings.forEach(toppingName => {
+          const label = document.createElement('label');
+          label.className = 'flex items-center justify-between p-2.5 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors';
+          label.innerHTML = `
+            <div class="flex items-center gap-2">
+              <input type="checkbox" value="${toppingName}" onchange="toggleModalTopping('${toppingName}', this.checked)" class="accent-brandRed rounded" />
+              <span class="text-xs text-brandCream capitalize">${toppingName}</span>
+            </div>
+            <span class="text-[10px] font-mono text-brandRed font-bold">+S/ 2</span>
+          `;
+          toppingsContainer.appendChild(label);
+        });
+      }
 
       // Pre-select included default sauce
       const sauceRadios = document.querySelectorAll('input[name="included-sauce"]');
@@ -1536,6 +1553,25 @@
       modal.classList.remove('opacity-0', 'pointer-events-none');
       container.classList.remove('scale-95');
       container.classList.add('scale-100');
+    }
+
+    function toggleToppingsVisibility() {
+      isToppingsExpanded = !isToppingsExpanded;
+      const toppingsContainer = document.getElementById('modal-toppings-container');
+      const toggleBtnText = document.getElementById('toggle-toppings-text');
+      const toggleBtnIcon = document.getElementById('toggle-toppings-icon');
+
+      if (isToppingsExpanded) {
+        toppingsContainer.classList.remove('hidden');
+        toppingsContainer.classList.add('grid');
+        toggleBtnText.innerText = 'Ocultar toppings';
+        toggleBtnIcon.innerText = '−';
+      } else {
+        toppingsContainer.classList.add('hidden');
+        toppingsContainer.classList.remove('grid');
+        toggleBtnText.innerText = modalSelectedToppings.length > 0 ? 'Modificar toppings' : 'Añadir topping';
+        toggleBtnIcon.innerText = '+';
+      }
     }
 
     function toggleModalTopping(toppingName, isChecked) {
@@ -1557,21 +1593,21 @@
     }
 
     function changeModalPieces(delta) {
-      modalPieces = Math.max(4, modalPieces + delta); // Minimum 4 pieces
+      modalPieces = Math.max(6, modalPieces + delta); // Minimum 6 pieces
       document.getElementById('modal-pieces-qty').innerText = modalPieces;
       updateModalSauceEligibility();
       recalculateModalPrice();
     }
 
     function setModalPieces(count) {
-      modalPieces = Math.max(4, count);
+      modalPieces = Math.max(6, count);
       document.getElementById('modal-pieces-qty').innerText = modalPieces;
       updateModalSauceEligibility();
       recalculateModalPrice();
     }
 
     function updateModalSauceEligibility() {
-      const isEligible = modalPieces >= 6;
+      const isEligible = modalPieces >= 12; // Free sauce threshold at 12 pieces
       const radiosContainer = document.getElementById('default-sauce-radios');
       const unlockedBanner = document.getElementById('sauce-unlocked-banner');
       const lockedBanner = document.getElementById('sauce-locked-banner');
@@ -1585,11 +1621,11 @@
         statusBadge.innerText = '1 Gratis incluida';
         statusBadge.className = 'text-[10px] px-2 py-0.5 rounded font-mono font-bold bg-green-950/60 border border-green-700/60 text-green-400';
       } else {
-        const remaining = 6 - modalPieces;
+        const remaining = 12 - modalPieces;
         radiosContainer.classList.add('opacity-50', 'pointer-events-none');
         unlockedBanner.classList.add('hidden');
         lockedBanner.classList.remove('hidden');
-        lockedMsg.innerText = `Falta${remaining === 1 ? '' : 'n'} ${remaining} pieza${remaining === 1 ? '' : 's'} para incluir salsa gratis.`;
+        lockedMsg.innerText = `Mínimo 6 piezas. Agrega ${remaining} más para incluir salsa gratis.`;
         statusBadge.innerText = `Falta${remaining === 1 ? '' : 'n'} ${remaining}`;
         statusBadge.className = 'text-[10px] px-2 py-0.5 rounded font-mono font-bold bg-brandDark border border-brandBorder text-brandRed';
       }
@@ -1650,7 +1686,7 @@
     function commitModalAddToCart() {
       if (!activeProduct) return;
 
-      const qualifiesForFreeSauce = modalPieces >= 6;
+      const qualifiesForFreeSauce = modalPieces >= 12;
       const checkedSauce = document.querySelector('input[name="included-sauce"]:checked');
       const chosenSauce = qualifiesForFreeSauce ? (checkedSauce ? checkedSauce.value : activeProduct.defaultSauce) : null;
 
@@ -1677,169 +1713,6 @@
       updateCartUI();
       closeProductModal();
       showToast(`${modalPieces} piezas de ${activeProduct.name} añadidas.`);
-    }
-      modalImg.dataset.triedAlt = '';
-      modalImg.dataset.triedExt = '';
-      modalImg.src = activeProduct.image;
-      modalImg.onerror = function() {
-        handleImageFallback(this);
-      };
-
-      document.getElementById('modal-line-tag').innerText = activeProduct.line === 'fruit' ? 'Línea Frutal' : 'Línea Pastelera';
-      document.getElementById('modal-box-qty').innerText = modalBoxQty;
-
-      // Render Toppings if product supports them
-      const toppingsWrapper = document.getElementById('modal-toppings-wrapper');
-      const toppingsContainer = document.getElementById('modal-toppings-container');
-      const toppingsCount = document.getElementById('modal-toppings-count');
-      toppingsCount.innerText = '0 seleccionados';
-      toppingsContainer.innerHTML = '';
-
-      if (activeProduct.availableToppings && activeProduct.availableToppings.length > 0) {
-        toppingsWrapper.classList.remove('hidden');
-        activeProduct.availableToppings.forEach(toppingName => {
-          const label = document.createElement('label');
-          label.className = 'flex items-center justify-between p-2 rounded-lg bg-brandDark border border-brandBorder cursor-pointer hover:border-brandRed transition-colors';
-          label.innerHTML = `
-            <div class="flex items-center gap-2">
-              <input type="checkbox" value="${toppingName}" onchange="toggleModalTopping('${toppingName}', this.checked)" class="accent-brandRed rounded" />
-              <span class="text-[11px] text-brandCream">${toppingName}</span>
-            </div>
-            <span class="text-[10px] font-mono text-brandRed">+S/ 2</span>
-          `;
-          toppingsContainer.appendChild(label);
-        });
-      } else {
-        toppingsWrapper.classList.add('hidden');
-      }
-
-      // Pre-select included default sauce
-      const sauceRadios = document.querySelectorAll('input[name="included-sauce"]');
-      sauceRadios.forEach(radio => {
-        radio.checked = (radio.value === activeProduct.defaultSauce);
-      });
-
-      renderExtraSaucesList();
-      recalculateModalPrice();
-
-      // Show modal
-      const modal = document.getElementById('product-modal');
-      const container = document.getElementById('modal-container');
-      modal.classList.remove('opacity-0', 'pointer-events-none');
-      container.classList.remove('scale-95');
-      container.classList.add('scale-100');
-    }
-
-    function toggleModalTopping(toppingName, isChecked) {
-      if (isChecked) {
-        modalSelectedToppings.push(toppingName);
-      } else {
-        modalSelectedToppings = modalSelectedToppings.filter(t => t !== toppingName);
-      }
-      document.getElementById('modal-toppings-count').innerText = `${modalSelectedToppings.length} seleccionado${modalSelectedToppings.length === 1 ? '' : 's'}`;
-      recalculateModalPrice();
-    }
-
-    function closeProductModal() {
-      const modal = document.getElementById('product-modal');
-      const container = document.getElementById('modal-container');
-      modal.classList.add('opacity-0', 'pointer-events-none');
-      container.classList.add('scale-95');
-      container.classList.remove('scale-100');
-    }
-
-    function changeModalBoxQty(delta) {
-      modalBoxQty = Math.max(1, modalBoxQty + delta);
-      document.getElementById('modal-box-qty').innerText = modalBoxQty;
-      recalculateModalPrice();
-    }
-
-    function addExtraSauceInput() {
-      modalExtraSauces.push('Chocolate');
-      renderExtraSaucesList();
-      recalculateModalPrice();
-    }
-
-    function removeExtraSauceInput(index) {
-      modalExtraSauces.splice(index, 1);
-      renderExtraSaucesList();
-      recalculateModalPrice();
-    }
-
-    function updateExtraSauceFlavor(index, newFlavor) {
-      modalExtraSauces[index] = newFlavor;
-    }
-
-    function renderExtraSaucesList() {
-      const container = document.getElementById('extra-sauces-list');
-      const countLabel = document.getElementById('extra-sauces-count');
-      countLabel.innerText = `${modalExtraSauces.length} extra${modalExtraSauces.length === 1 ? '' : 's'} (+S/ ${modalExtraSauces.length * 3})`;
-
-      container.innerHTML = '';
-      modalExtraSauces.forEach((flavor, idx) => {
-        const row = document.createElement('div');
-        row.className = 'flex items-center gap-2 bg-brandDark p-2 rounded-lg border border-brandBorder';
-        row.innerHTML = `
-          <span class="text-xs text-brandRed font-mono font-bold">#${idx + 1}</span>
-          <select onchange="updateExtraSauceFlavor(${idx}, this.value)" class="flex-1 bg-brandCard border border-brandBorder text-xs text-brandCream rounded p-1 focus:outline-none">
-            <option value="Chocolate" ${flavor === 'Chocolate' ? 'selected' : ''}>Chocolate (+S/3)</option>
-            <option value="Pistachio Cream" ${flavor === 'Pistachio Cream' ? 'selected' : ''}>Pistachio Cream (+S/3)</option>
-            <option value="Dulce de Leche" ${flavor === 'Dulce de Leche' ? 'selected' : ''}>Dulce de Leche (+S/3)</option>
-            <option value="Fruit Jam" ${flavor === 'Fruit Jam' ? 'selected' : ''}>Fruit Jam (+S/3)</option>
-          </select>
-          <button type="button" onclick="removeExtraSauceInput(${idx})" class="text-xs text-brandCreamMuted hover:text-brandRed px-2 py-1">✕</button>
-        `;
-        container.appendChild(row);
-      });
-    }
-
-    function recalculateModalPrice() {
-      if (!activeProduct) return;
-      // Formula: ((base price + toppings) × number of boxes) + (S/3 × extra pots)
-      const toppingsPerBox = modalSelectedToppings.length * 2;
-      const basePlusToppings = activeProduct.price + toppingsPerBox;
-      const baseTotal = basePlusToppings * modalBoxQty;
-      const extrasTotal = modalExtraSauces.length * 3;
-      const grandTotal = baseTotal + extrasTotal;
-
-      // Update base price header with live calculation details
-      const basePriceLabel = document.getElementById('modal-base-price');
-      if (modalBoxQty > 1 || toppingsPerBox > 0) {
-        basePriceLabel.innerHTML = `<span>S/ ${baseTotal.toFixed(2)}</span> <span class="text-[10px] font-normal text-brandCreamMuted">(${modalBoxQty}x S/ ${basePlusToppings.toFixed(2)})</span>`;
-      } else {
-        basePriceLabel.innerText = `S/ ${activeProduct.price.toFixed(2)}`;
-      }
-
-      // Update prominent footer calculated total
-      document.getElementById('modal-calculated-total').innerText = `S/ ${grandTotal.toFixed(2)}`;
-    }
-
-    function commitModalAddToCart() {
-      if (!activeProduct) return;
-
-      const checkedSauce = document.querySelector('input[name="included-sauce"]:checked');
-      const chosenSauce = checkedSauce ? checkedSauce.value : activeProduct.defaultSauce;
-
-      const toppingsPerBox = modalSelectedToppings.length * 2;
-      const itemTotal = ((activeProduct.price + toppingsPerBox) * modalBoxQty) + (modalExtraSauces.length * 3);
-
-      const cartItem = {
-        cartId: 'item_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
-        type: 'product',
-        productId: activeProduct.id,
-        name: activeProduct.name,
-        pricePerBox: activeProduct.price,
-        boxes: modalBoxQty,
-        includedSauce: chosenSauce,
-        extraSauces: [...modalExtraSauces],
-        toppings: [...modalSelectedToppings],
-        totalPrice: itemTotal
-      };
-
-      cart.push(cartItem);
-      updateCartUI();
-      closeProductModal();
-      showToast(`${modalBoxQty}x Caja(s) de ${activeProduct.name} añadidas.`);
     }
 
     /* Box-Builder Modal Functions */
@@ -2173,7 +2046,7 @@
 
         let detailsHtml = '';
         if (item.type === 'product') {
-          const sauceLabel = item.includedSauce ? item.includedSauce : 'Sin salsa (pedido menor a 6 piezas)';
+          const sauceLabel = item.includedSauce ? item.includedSauce : 'Sin salsa (pedido menor a 12 piezas)';
           detailsHtml = `
             <div class="text-[11px] text-brandCreamMuted/80 space-y-0.5">
               <div><span class="text-brandCream">Salsa:</span> ${sauceLabel}</div>
@@ -2243,7 +2116,7 @@
       cart.forEach((item, index) => {
         total += item.totalPrice;
         if (item.type === 'product') {
-          const sauceText = item.includedSauce ? item.includedSauce : 'No incluida (pedido menor a 6 piezas)';
+          const sauceText = item.includedSauce ? item.includedSauce : 'No incluida (pedido menor a 12 piezas)';
           text += `*${index + 1}. ${item.pieces} piezas de ${item.name}*\n`;
           text += `   • Salsa incluida: ${sauceText}\n`;
           if (item.toppings && item.toppings.length > 0) {
