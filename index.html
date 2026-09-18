@@ -1947,7 +1947,7 @@
       cart.forEach(item => {
         grandTotal += item.totalPrice;
         let units = 1;
-        if (item.type === 'product') units = item.boxes;
+        if (item.type === 'product') units = item.pieces;
         else if (item.type === 'combo') units = item.qty;
         totalUnits += units;
 
@@ -1956,11 +1956,12 @@
 
         let detailsHtml = '';
         if (item.type === 'product') {
+          const sauceLabel = item.includedSauce ? item.includedSauce : 'Sin salsa (pedido menor a 6 piezas)';
           detailsHtml = `
             <div class="text-[11px] text-brandCreamMuted/80 space-y-0.5">
-              <div><span class="text-brandCream">Salsa:</span> ${item.includedSauce}</div>
+              <div><span class="text-brandCream">Salsa:</span> ${sauceLabel}</div>
               ${item.toppings && item.toppings.length > 0 ? `<div><span class="text-brandCream">Toppings:</span> ${item.toppings.join(', ')}</div>` : ''}
-              ${item.extraSauces && item.extraSauces.length > 0 ? `<div><span class="text-brandCream">Salseras extra:</span> ${item.extraSauces.join(', ')}</div>` : ''}
+              ${item.extraSauces && item.extraSauces.length > 0 ? `<div><span class="text-brandCream">Salsas extra:</span> ${item.extraSauces.join(', ')}</div>` : ''}
             </div>
           `;
         } else if (item.type === 'custom_box') {
@@ -1969,7 +1970,7 @@
             <div class="text-[11px] text-brandCreamMuted/80 space-y-0.5">
               <div><span class="text-brandCream">Makis:</span> ${piecesText}</div>
               <div><span class="text-brandCream">Salsa:</span> ${item.includedSauce}</div>
-              ${item.extraSauces && item.extraSauces.length > 0 ? `<div><span class="text-brandCream">Salseras extra:</span> ${item.extraSauces.join(', ')}</div>` : ''}
+              ${item.extraSauces && item.extraSauces.length > 0 ? `<div><span class="text-brandCream">Salsas extra:</span> ${item.extraSauces.join(', ')}</div>` : ''}
             </div>
           `;
         } else if (item.type === 'combo') {
@@ -1984,7 +1985,7 @@
           <div class="flex items-start justify-between gap-3">
             <div class="space-y-1">
               <h4 class="text-xs font-bold text-brandCream font-display">
-                ${item.type === 'product' ? `${item.boxes}x Caja de ${item.name}` : (item.type === 'combo' ? `${item.qty}x ${item.name}` : item.name)}
+                ${item.type === 'product' ? `${item.pieces} piezas de ${item.name}` : (item.type === 'combo' ? `${item.qty}x ${item.name}` : item.name)}
               </h4>
               ${detailsHtml}
             </div>
@@ -2001,7 +2002,7 @@
       });
 
       if (badge) badge.innerText = totalUnits.toString();
-      if (summaryCount) summaryCount.innerText = `${totalUnits} item${totalUnits === 1 ? '' : 's'}`;
+      if (summaryCount) summaryCount.innerText = `${totalUnits} pieza${totalUnits === 1 ? '' : 's'}/item${totalUnits === 1 ? '' : 's'}`;
       if (grandTotalEl) grandTotalEl.innerText = `S/ ${grandTotal.toFixed(2)}`;
     }
 
@@ -2025,13 +2026,14 @@
       cart.forEach((item, index) => {
         total += item.totalPrice;
         if (item.type === 'product') {
-          text += `*${index + 1}. ${item.boxes}x Caja de ${item.name}*\n`;
-          text += `   • Salsa incluida: ${item.includedSauce}\n`;
+          const sauceText = item.includedSauce ? item.includedSauce : 'No incluida (pedido menor a 6 piezas)';
+          text += `*${index + 1}. ${item.pieces} piezas de ${item.name}*\n`;
+          text += `   • Salsa incluida: ${sauceText}\n`;
           if (item.toppings && item.toppings.length > 0) {
             text += `   • Toppings: ${item.toppings.join(', ')}\n`;
           }
           if (item.extraSauces.length > 0) {
-            text += `   • Salseras extras (${item.extraSauces.length}): ${item.extraSauces.join(', ')}\n`;
+            text += `   • Salsas extras (${item.extraSauces.length}): ${item.extraSauces.join(', ')}\n`;
           }
           text += `   • Subtotal: S/ ${item.totalPrice.toFixed(2)}\n\n`;
         } else if (item.type === 'custom_box') {
@@ -2040,7 +2042,7 @@
           text += `   • Makis (6): ${piecesBreakdown}\n`;
           text += `   • Salsa incluida: ${item.includedSauce}\n`;
           if (item.extraSauces.length > 0) {
-            text += `   • Salseras extras (${item.extraSauces.length}): ${item.extraSauces.join(', ')}\n`;
+            text += `   • Salsas extras (${item.extraSauces.length}): ${item.extraSauces.join(', ')}\n`;
           }
           text += `   • Subtotal: S/ ${item.totalPrice.toFixed(2)}\n\n`;
         } else {
